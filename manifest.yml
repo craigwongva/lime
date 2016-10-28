@@ -1,0 +1,7 @@
+applications:
+- name: bannk
+  path: target/blue-1.0.jar
+  buildpack: java_buildpack_offline
+  memory: 508M
+  instances: 1
+  timeout: 60
