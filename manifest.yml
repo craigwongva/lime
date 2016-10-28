@@ -1,7 +1,7 @@
 applications:
 - name: bannk
   path: target/blue-0.1.war
-  buildpack: java_buildpack_offline
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git#193d6b7
   memory: 508M
   instances: 1
   timeout: 60
