@@ -1,6 +1,6 @@
 applications:
 - name: bannk
-  path: target/blue-1.0.jar
+  path: target/blue-1.0.war
   buildpack: java_buildpack_offline
   memory: 508M
   instances: 1
