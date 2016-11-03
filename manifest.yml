@@ -1,5 +1,5 @@
 applications:
-- name: new-cf
+- name: reshtest
   path: target/red-0.1.war
   buildpack: https://github.com/cloudfoundry/java-buildpack.git
   memory: 502M
