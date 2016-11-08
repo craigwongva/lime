@@ -6,3 +6,4 @@ sudo service jenkins start                                         &> $TMP-1300
 sleep 3m                                                           &> $TMP-1350
 wget localhost:8080/jnlpJars/jenkins-cli.jar                       &> $TMP-1400
 java -jar jenkins-cli.jar -s http://localhost:8080 create-job hello < hello.xml &> $TMP-1500
+java -jar jenkins-cli.jar -s http://localhost:8080 create-job simple < simplecfpushwithnexus.xml &> $TMP-1600
