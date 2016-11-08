@@ -5,5 +5,17 @@ sudo yum install jenkins-1.653-1.1                                 &> $TMP-1200
 sudo service jenkins start                                         &> $TMP-1300
 sleep 3m                                                           &> $TMP-1350
 wget localhost:8080/jnlpJars/jenkins-cli.jar                       &> $TMP-1400
-java -jar jenkins-cli.jar -s http://localhost:8080 create-job hello < hello.xml &> $TMP-1500
-java -jar jenkins-cli.jar -s http://localhost:8080 create-job simple < simplecfpushwithnexus.xml &> $TMP-1600
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin github               &> $TMP-1700
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin job-dsl              &> $TMP-1800
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin workflow-aggregator  &> $TMP-1900
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin groovy               &> $TMP-2000
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin credentials-binding  &> $TMP-2100
+#-->manually add a Maven "M1"
+#-->manually add a Groovy "G1"
+sudo service jenkins stop                                          &> $TMP-2400
+sudo service jenkins start                                         &> $TMP-2500
+sleep 3m                                                           &> $TMP-2600
+java -jar jenkins-cli.jar -s http://localhost:8080 create-job hello < hello.xml &> $TMP-2700
+java -jar jenkins-cli.jar -s http://localhost:8080 create-job simple < simple.xml &> $TMP-2800
+
+
