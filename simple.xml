@@ -1,55 +1,109 @@
+<?xml version='1.0' encoding='UTF-8'?>
 <project>
-<actions/>
-<description>j8</description>
-<keepDependencies>false</keepDependencies>
-<properties/>
-<scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.0">
-<configVersion>2</configVersion>
-<userRemoteConfigs>
-<hudson.plugins.git.UserRemoteConfig>
-<url>https://github.com/craigwongva/lime.git</url>
-<credentialsId>12345</credentialsId>
-</hudson.plugins.git.UserRemoteConfig>
-</userRemoteConfigs>
-<branches>
-<hudson.plugins.git.BranchSpec>
-<name>*/master</name>
-</hudson.plugins.git.BranchSpec>
-</branches>
-<doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-<submoduleCfg class="list"/>
-<extensions/>
-</scm>
-<canRoam>true</canRoam>
-<disabled>false</disabled>
-<blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-<blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-<triggers/>
-<concurrentBuild>false</concurrentBuild>
-<builders>
-<javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.52">
-<scriptText>
-def userpass = this.getBinding().getVariable('thepcf') def userpasssplit = userpass.split(':') def user = userpasssplit[0] def pwd = userpasssplit[1] def x1 = "pwd" def x1text = x1.execute().text println x1text def cfcmd = "/cf" def cftarget = "https://api.devops.geointservices.io" def cfskip = "--skip-ssl-validation" def cforg = "piazza" def cfspace = "int" def cmd = "$cfcmd login -a $cftarget -u $user -p $pwd -o $cforg -s $cfspace $cfskip" def cmdtext = cmd.execute().text //println cmd println cmdtext //def jobsdir = "/home/ec2-user/jenkins-1.658-4/apps/jenkins/jenkins_home/jobs" def jobsdir = "/var/lib/jenkins/jobs" def targetdir = "simple/workspace/target" def war = "red-0.1.war" def appname = "banno" def cmd2 = "$cfcmd push $appname -p $jobsdir/$targetdir/$war" def cmdtext2 = cmd2.execute().text println cmdtext2 /* this pushes to Nexus. so what? println "here we go" //def jobsdir3 = "/home/ec2-user/jenkins-1.658-4/apps/jenkins/jenkins_home/jobs" def jobsdir3 = "/var/lib/jenkins/jobs" def targetdir3 = "simplecfpushwithnexus/workspace" def cmd3 = "curl --user 'admin:admin123' --upload-file $jobsdir3/$targetdir3/blue-0.1.warx http://35.162.67.76:8081/repository/myrawrepo/first_webapp_from_nexus" //println cmd3 //def cmdtext3 = cmd3.execute().text //println cmdtext3 //curl --user 'admin:admin123' --upload-file blue-0.1.war http://localhost:8081/repository/myrawrepo/first_webapp_from_nexus //process = [ 'bash', '-c', "curl -v -k -X POST -H \"Content-Type: application/json\" -d '${json}' https://username:password@anotherhost.com:9443/restendpoint" ].execute().tex //def mickey = [ // "curl", "--user", "'admin:admin123'", "--upload-file", "$jobsdir3/$targetdir3/blue-0.1.war", "http://35.162.67.76:8081/repository/myrawrepo/first_webapp_from_nexus"] def mickey = [ //succeeds: "curl", "--user", "admin:admin123", "http://35.162.67.76:8081/repository/myrawrepo"] "curl", "--user", "admin:admin123", "--upload-file", "/home/ec2-user/jenkins-1.658-4/apps/jenkins/jenkins_home/jobs/simplecfpushwithnexus/workspace/blue-0.1.war", "http://35.162.67.76:8081/repository/myrawrepo/happy"].execute() mickey.waitFor() println mickey.err.text println "here comes the answer" println mickey.text println "that's all folks" */
-</scriptText>
-<usingScriptText>true</usingScriptText>
-<ignoreExisting>false</ignoreExisting>
-<ignoreMissingFiles>false</ignoreMissingFiles>
-<failOnMissingPlugin>false</failOnMissingPlugin>
-<unstableOnDeprecation>false</unstableOnDeprecation>
-<removedJobAction>IGNORE</removedJobAction>
-<removedViewAction>IGNORE</removedViewAction>
-<lookupStrategy>JENKINS_ROOT</lookupStrategy>
-</javaposse.jobdsl.plugin.ExecuteDslScripts>
-</builders>
-<publishers/>
-<buildWrappers>
-<org.jenkinsci.plugins.credentialsbinding.impl.SecretBuildWrapper plugin="credentials-binding@1.10">
-<bindings>
-<org.jenkinsci.plugins.credentialsbinding.impl.UsernamePasswordBinding>
-<credentialsId>12345</credentialsId>
-<variable>thepcf</variable>
-</org.jenkinsci.plugins.credentialsbinding.impl.UsernamePasswordBinding>
-</bindings>
-</org.jenkinsci.plugins.credentialsbinding.impl.SecretBuildWrapper>
-</buildWrappers>
+  <actions/>
+  <description>j8</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/craigwongva/lime.git</url>
+        <credentialsId>12345</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.52">
+      <scriptText>def userpass = this.getBinding().getVariable(&apos;thepcf&apos;)
+def userpasssplit = userpass.split(&apos;:&apos;)
+def user = userpasssplit[0]
+def pwd = userpasssplit[1]
+
+def x1 = &quot;pwd&quot;
+def x1text = x1.execute().text
+println x1text
+
+def cfcmd = &quot;/cf&quot;
+def cftarget = &quot;https://api.devops.geointservices.io&quot;
+def cfskip = &quot;--skip-ssl-validation&quot;
+def cforg = &quot;piazza&quot;
+def cfspace = &quot;int&quot;
+def cmd = &quot;$cfcmd login -a $cftarget -u $user -p $pwd -o $cforg -s $cfspace $cfskip&quot;
+def cmdtext = cmd.execute().text
+//println cmd
+println cmdtext
+
+
+//def jobsdir = &quot;/home/ec2-user/jenkins-1.658-4/apps/jenkins/jenkins_home/jobs&quot;
+def jobsdir = &quot;/var/lib/jenkins/jobs&quot;
+def targetdir = &quot;simple/workspace/target&quot;
+def war = &quot;red-0.1.war&quot;
+def appname = &quot;banno&quot;
+def cmd2 = &quot;$cfcmd push $appname -p $jobsdir/$targetdir/$war&quot;
+def cmdtext2 = cmd2.execute().text
+println cmdtext2
+
+/* this pushes to Nexus. so what? 
+println &quot;here we go&quot;
+//def jobsdir3 = &quot;/home/ec2-user/jenkins-1.658-4/apps/jenkins/jenkins_home/jobs&quot;
+def jobsdir3 = &quot;/var/lib/jenkins/jobs&quot;
+def targetdir3 = &quot;simplecfpushwithnexus/workspace&quot;
+def cmd3 = &quot;curl --user &apos;admin:admin123&apos; --upload-file $jobsdir3/$targetdir3/blue-0.1.warx http://35.162.67.76:8081/repository/myrawrepo/first_webapp_from_nexus&quot;
+//println cmd3
+//def cmdtext3 = cmd3.execute().text
+//println cmdtext3
+
+
+//curl --user &apos;admin:admin123&apos; --upload-file blue-0.1.war http://localhost:8081/repository/myrawrepo/first_webapp_from_nexus
+
+//process = [ &apos;bash&apos;, &apos;-c&apos;, &quot;curl -v -k -X POST -H \&quot;Content-Type: application/json\&quot; -d &apos;${json}&apos; https://username:password@anotherhost.com:9443/restendpoint&quot; ].execute().tex
+
+//def mickey = [
+// &quot;curl&quot;, &quot;--user&quot;, &quot;&apos;admin:admin123&apos;&quot;, &quot;--upload-file&quot;, &quot;$jobsdir3/$targetdir3/blue-0.1.war&quot;, &quot;http://35.162.67.76:8081/repository/myrawrepo/first_webapp_from_nexus&quot;] 
+def mickey = [
+//succeeds: &quot;curl&quot;, &quot;--user&quot;, &quot;admin:admin123&quot;, &quot;http://35.162.67.76:8081/repository/myrawrepo&quot;] 
+ &quot;curl&quot;, &quot;--user&quot;, &quot;admin:admin123&quot;, &quot;--upload-file&quot;, &quot;/home/ec2-user/jenkins-1.658-4/apps/jenkins/jenkins_home/jobs/simplecfpushwithnexus/workspace/blue-0.1.war&quot;, &quot;http://35.162.67.76:8081/repository/myrawrepo/happy&quot;].execute()
+
+mickey.waitFor()
+println mickey.err.text
+println &quot;here comes the answer&quot;
+println mickey.text
+println &quot;that&apos;s all folks&quot;
+*/</scriptText>
+      <usingScriptText>true</usingScriptText>
+      <ignoreExisting>false</ignoreExisting>
+      <ignoreMissingFiles>false</ignoreMissingFiles>
+      <failOnMissingPlugin>false</failOnMissingPlugin>
+      <unstableOnDeprecation>false</unstableOnDeprecation>
+      <removedJobAction>IGNORE</removedJobAction>
+      <removedViewAction>IGNORE</removedViewAction>
+      <lookupStrategy>JENKINS_ROOT</lookupStrategy>
+    </javaposse.jobdsl.plugin.ExecuteDslScripts>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <org.jenkinsci.plugins.credentialsbinding.impl.SecretBuildWrapper plugin="credentials-binding@1.10">
+      <bindings>
+        <org.jenkinsci.plugins.credentialsbinding.impl.UsernamePasswordBinding>
+          <credentialsId>12345</credentialsId>
+          <variable>thepcf</variable>
+        </org.jenkinsci.plugins.credentialsbinding.impl.UsernamePasswordBinding>
+      </bindings>
+    </org.jenkinsci.plugins.credentialsbinding.impl.SecretBuildWrapper>
+  </buildWrappers>
 </project>
