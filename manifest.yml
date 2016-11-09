@@ -1,6 +1,6 @@
 applications:
 - name: simpleresh 
-  path: target/red-0.1.war
+  path: target/green-0.1.war
   buildpack: https://github.com/cloudfoundry/java-buildpack.git
   memory: 502M
   instances: 1
