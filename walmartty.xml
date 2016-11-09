@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/craigwongva/banana.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Maven>
+      <targets>clean install</targets>
+      <mavenName>M1</mavenName>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+    </hudson.tasks.Maven>
+    <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.53">
+      <scriptText>println &quot;ABC&quot;
+//println this.getBinding().getVariables()
+//println binding.variables
+//def configuration = new HashMap()
+//def binding = getBinding()
+//configuration.putAll(binding.getVariables())
+//String buildNumber = configuration[&quot;BUILD_NUMBER&quot;]
+//println buildNumber
+
+def userpass = this.getBinding().getVariable(&apos;thepcf&apos;)
+def userpasssplit = userpass.split(&apos;:&apos;)
+def user = userpasssplit[0]
+def split = userpasssplit[1]
+println &quot;$user, $split&quot;
+println &quot;WXYZ&quot;
+//def awscmd = &apos;ls -l /home/ec2-user/jenkins-1.658-4/apps/jenkins/jenkins_home/jobs/Targett/workspace&apos;
+def awscmd = &quot;/cf login -a https://api.devops.geointservices.io -u $user -p $split -o piazza -s int --skip-ssl-validation&quot;
+def awscmdtext = awscmd.execute().text
+println awscmdtext
+def awscmd2 = &quot;/cf push bannj -p /var/lib/jenkins/jobs/Walmartty/workspace/target/banana-1.0-SNAPSHOT.war&quot;
+def awscmdtext2 = awscmd2.execute().text
+println awscmdtext2
+
+println &quot;XXYY&quot;</scriptText>
+      <usingScriptText>true</usingScriptText>
+      <ignoreExisting>false</ignoreExisting>
+      <ignoreMissingFiles>false</ignoreMissingFiles>
+      <failOnMissingPlugin>false</failOnMissingPlugin>
+      <unstableOnDeprecation>false</unstableOnDeprecation>
+      <removedJobAction>IGNORE</removedJobAction>
+      <removedViewAction>IGNORE</removedViewAction>
+      <lookupStrategy>JENKINS_ROOT</lookupStrategy>
+    </javaposse.jobdsl.plugin.ExecuteDslScripts>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <org.jenkinsci.plugins.credentialsbinding.impl.SecretBuildWrapper plugin="credentials-binding@1.10">
+      <bindings>
+        <org.jenkinsci.plugins.credentialsbinding.impl.UsernamePasswordBinding>
+          <credentialsId>12345</credentialsId>
+          <variable>thepcf</variable>
+        </org.jenkinsci.plugins.credentialsbinding.impl.UsernamePasswordBinding>
+      </bindings>
+    </org.jenkinsci.plugins.credentialsbinding.impl.SecretBuildWrapper>
+  </buildWrappers>
+</project>
