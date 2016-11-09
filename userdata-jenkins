@@ -28,3 +28,10 @@ tar zxvf foo #creates the executable “cf”                         &> $TMP-31
 rm foo                                                            &> $TMP-3200
 chmod 755 cf                                                      &> $TMP-3300
 sudo cp ./cf /cf                                                  &> $TMP-3400
+
+****
+** Install Java for Jenkins' Maven use
+****
+sudo yum install java-1.8.0-openjdk-devel -y                      &> $TMP-4000
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk                  &> $TMP-4100
+
