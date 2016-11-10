@@ -8,7 +8,7 @@ sed -i '2s/application-port=8081/application-port=8079/' /home/ec2-user/lime/nex
 
 cd /home/ec2-user/lime/nexus-3.0.0-03/bin > /tmp/userdata-nexus-only-350 2>&1
 
-#EXPOSE 8081
+#EXPOSE 8079
 
 ./nexus start > /tmp/userdata-nexus-only-440 2>&1
 echo sleeping for 180 seconds > /tmp/userdata-nexus-only-500 2>&1
