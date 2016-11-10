@@ -20,9 +20,9 @@ java -jar jenkins-cli.jar -s http://localhost:8080 create-job simple < simple.xm
 java -jar jenkins-cli.jar -s http://localhost:8080 create-job walmartty < walmartty.xml &> $TMP-2900
 
 
-****
-** Install PCF CLI
-****
+####
+## Install PCF CLI
+####
 
 wget "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.21.1&source=github-rel" -O foo &> $TMP-3000
 tar zxvf foo #creates the executable “cf”                         &> $TMP-3100
@@ -30,9 +30,9 @@ rm foo                                                            &> $TMP-3200
 chmod 755 cf                                                      &> $TMP-3300
 sudo cp ./cf /cf                                                  &> $TMP-3400
 
-****
-** Install Java for Jenkins' Maven use
-****
+####
+## Install Java for Jenkins' Maven use
+####
 sudo yum install java-1.8.0-openjdk-devel -y                      &> $TMP-4000
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk                  &> $TMP-4100
 
