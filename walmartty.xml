@@ -54,7 +54,7 @@ println &quot;WXYZ&quot;
 def awscmd = &quot;/cf login -a https://api.devops.geointservices.io -u $user -p $split -o piazza -s int --skip-ssl-validation&quot;
 def awscmdtext = awscmd.execute().text
 println awscmdtext
-def awscmd2 = &quot;/cf push bannj -p /var/lib/jenkins/jobs/Walmartty/workspace/target/banana-1.0-SNAPSHOT.war&quot;
+def awscmd2 = &quot;/cf push bannj -p /var/lib/jenkins/jobs/walmartty/workspace/target/banana-1.0-SNAPSHOT.war&quot;
 def awscmdtext2 = awscmd2.execute().text
 println awscmdtext2
 
