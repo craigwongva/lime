@@ -58,7 +58,35 @@ def awscmd2 = &quot;/cf push bannj -p /var/lib/jenkins/jobs/walmartty/workspace/
 def awscmdtext2 = awscmd2.execute().text
 println awscmdtext2
 
-println &quot;XXYY&quot;</scriptText>
+println &quot;XXYY&quot;
+
+// this pushes to Nexus. so what? 
+println &quot;here we go&quot;
+//def jobsdir3 = &quot;/home/ec2-user/jenkins-1.658-4/apps/jenkins/jenkins_home/jobs&quot;
+def jobsdir3 = &quot;/var/lib/jenkins/jobs&quot;
+def targetdir3 = &quot;walmartty/workspace&quot;
+def cmd3 = &quot;curl --user &apos;admin:admin123&apos; --upload-file $jobsdir3/$targetdir3/banana-1.0-SNAPSHOT.war http://localhost:8079/repository/myrawrepo/banana-1.0-SNAPSHOT.war&quot;
+//println cmd3
+//def cmdtext3 = cmd3.execute().text
+//println cmdtext3
+
+
+//curl --user &apos;admin:admin123&apos; --upload-file blue-0.1.war http://localhost:8081/repository/myrawrepo/first_webapp_from_nexus
+
+//process = [ &apos;bash&apos;, &apos;-c&apos;, &quot;curl -v -k -X POST -H \&quot;Content-Type: application/json\&quot; -d &apos;${json}&apos; https://username:password@anotherhost.com:9443/restendpoint&quot; ].execute().tex
+
+//def mickey = [
+// &quot;curl&quot;, &quot;--user&quot;, &quot;&apos;admin:admin123&apos;&quot;, &quot;--upload-file&quot;, &quot;$jobsdir3/$targetdir3/blue-0.1.war&quot;, &quot;http://35.162.67.76:8081/repository/myrawrepo/first_webapp_from_nexus&quot;] 
+def mickey = [
+//succeeds: &quot;curl&quot;, &quot;--user&quot;, &quot;admin:admin123&quot;, &quot;http://35.162.67.76:8081/repository/myrawrepo&quot;] 
+ &quot;curl&quot;, &quot;--user&quot;, &quot;admin:admin123&quot;, &quot;--upload-file&quot;, &quot;/var/lib/jenkins/jobs/walmartty/workspace/target/banana-1.0-SNAPSHOT.war&quot;, &quot;http://localhost:8079/repository/myrawrepo/banana-1.0-SNAPSHOT.war&quot;].execute()
+
+mickey.waitFor()
+println mickey.err.text
+println &quot;here comes the answer&quot;
+println mickey.text
+println &quot;that&apos;s all folks&quot;
+//</scriptText>
       <usingScriptText>true</usingScriptText>
       <ignoreExisting>false</ignoreExisting>
       <ignoreMissingFiles>false</ignoreMissingFiles>

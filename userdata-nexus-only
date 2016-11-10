@@ -1,0 +1,42 @@
+#INSTALL NEXUS
+
+
+rm -rf nexus-3.0.0-03 > /tmp/userdata-nexus-only-210 2>&1
+tar -xvf craig-nexus-3.0.0-03-unix.tar > /tmp/userdata-nexus-only-240 2>&1
+
+sed -i '2s/application-port=8081/application-port=8079/' /home/ec2-user/lime/nexus-3.0.0-03/etc/org.sonatype.nexus.cfg > /tmp/userdata-nexus-only-310 2>&1
+
+cd /home/ec2-user/lime/nexus-3.0.0-03/bin > /tmp/userdata-nexus-only-350 2>&1
+
+#EXPOSE 8081
+
+./nexus start > /tmp/userdata-nexus-only-440 2>&1
+echo sleeping for 180 seconds > /tmp/userdata-nexus-only-500 2>&1
+sleep 180
+echo done sleeping > /tmp/userdata-nexus-only-600 2>&1
+curl localhost:8079 > /tmp/userdata-nexus-only-610 2>&1
+
+#
+##make sure 8079 is open
+
+
+#CREATE A NEXUS REPO
+
+
+echo  > createrawrepo.json
+sed -i '$a {'                                                                   createrawrepo.json
+sed -i '$a  \"name\": \"rawcmd\",'                                              createrawrepo.json
+sed -i '$a  \"type\": \"groovy\",'                                              createrawrepo.json
+sed -i '$a  \"content\": \"repository.createRawHosted(SINGLEQUOTEmyrawrepoSINGLEQUOTE)\"'          createrawrepo.json
+sed -i '$a }' createrawrepo.json
+sed -i '1,$s/SINGLEQUOTE/\x27/g'                                                createrawrepo.json
+
+#idempotent?:
+curl -XDELETE -u admin:admin123 'http://localhost:8079/service/siesta/rest/v1/script/maven' > /tmp/userdata-nexus-only-810 2>&1
+curl -XPOST -u admin:admin123 --header "Content-Type: application/json" 'http://localhost:8079/service/siesta/rest/v1/script' -d @createrawrepo.json > /tmp/userdata-nexus-only-820 2>&1
+curl -XGET -u admin:admin123 'http://localhost:8079/service/siesta/rest/v1/script' > /tmp/userdata-nexus-only-830 2>&1
+curl -XPOST -u admin:admin123 --header "Content-Type: text/plain" 'http://localhost:8079/service/siesta/rest/v1/script/rawcmd/run' > /tmp/userdata-nexus-only-840 2>&1
+
+
+#POPULATE THE NEXUS REPO
+curl --user 'admin:admin123' --upload-file bin/first_webapp http://localhost:8079/repository/myrawrepo/first_webapp_from_nexus > /tmp/userdata-nexus-only-999 2>&1
