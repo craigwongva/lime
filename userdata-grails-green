@@ -1,0 +1,27 @@
+export TMP=/tmp/userdata-grails-green
+
+##
+# Install Java
+##
+
+sudo yum install java-1.7.0-openjdk-devel -y                > $TMP-1000 2>&1
+export JAVA_HOME=/usr/lib/jvm/java                          > $TMP-1100 2>&1
+
+##
+# Install Grails
+##
+
+cd /home/ec2-user                                           > $TMP-1200 2>&1
+wget http://get.sdkman.io -O installsdkman                  > $TMP-1300 2>&1
+chmod 440 installsdkman                                     > $TMP-1400 2>&1
+/bin/bash installsdkman                                     > $TMP-1500 2>&1 
+sed -i -e 's/sdkman_auto_answer=false/sdkman_auto_answer=true/' /home/ec2-user/.sdkman/etc/config > $TMP-1600 2>&1
+chmod 744 /home/ec2-user/.sdkman/bin/sdkman-init.sh         > $TMP-1700 2>&1
+. .sdkman/bin/sdkman-init.sh                                > $TMP-1800 2>&1
+sdk install grails 2.4.0                                    > $TMP-1900 2>&1 
+
+##
+# Make Grails available to Jenkins.
+##
+
+cp -r /home/ec2-user/.sdkman/candidates/grails /tmp

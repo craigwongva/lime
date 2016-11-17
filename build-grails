@@ -1,0 +1,2 @@
+export JAVA_HOME=/usr/lib/jvm/java 
+/home/ec2-user/.sdkman/candidates/grails/2.4.0/bin/grails war
