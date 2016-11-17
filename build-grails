@@ -1,2 +1,4 @@
-export JAVA_HOME=/usr/lib/jvm/java 
-/tmp/grails/2.4.0/bin/grails war
+export TMP=/tmp/build-grails
+export JAVA_HOME=/usr/lib/jvm/java                    > $TMP-1000 2>&1 
+cd /var/lib/jenkins/jobs/simple/workspace             > $TMP-1100 2>&1
+/tmp/grails/2.4.0/bin/grails war                      > $TMP-1200 2>&1
