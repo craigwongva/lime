@@ -39,4 +39,4 @@ curl -XPOST -u admin:admin123 --header "Content-Type: text/plain" 'http://localh
 
 
 #POPULATE THE NEXUS REPO
-curl --user 'admin:admin123' --upload-file bin/first_webapp http://localhost:8079/repository/myrawrepo/first_webapp_from_nexus > /tmp/userdata-nexus-only-999 2>&1
+#curl --user 'admin:admin123' --upload-file bin/first_webapp http://localhost:8079/repository/myrawrepo/first_webapp_from_nexus > /tmp/userdata-nexus-only-999 2>&1
