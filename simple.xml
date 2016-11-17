@@ -28,13 +28,14 @@
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.52">
+    <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.53">
       <scriptText>def userpass = this.getBinding().getVariable(&apos;thepcf&apos;)
 def userpasssplit = userpass.split(&apos;:&apos;)
 def user = userpasssplit[0]
 def pwd = userpasssplit[1]
 
-def x1 = &quot;pwd&quot;
+
+def x1 = &quot;JAVA_HOME=/usr/lib/jvm/java; /tmp/grails/2.4.0/bin/grails war&quot;
 def x1text = x1.execute().text
 println x1text
 
@@ -52,7 +53,7 @@ println cmdtext
 //def jobsdir = &quot;/home/ec2-user/jenkins-1.658-4/apps/jenkins/jenkins_home/jobs&quot;
 def jobsdir = &quot;/var/lib/jenkins/jobs&quot;
 def targetdir = &quot;simple/workspace/target&quot;
-def war = &quot;red-0.1.war&quot;
+def war = &quot;blue-0.1.war&quot;
 def appname = &quot;banno&quot;
 def cmd2 = &quot;$cfcmd push $appname -p $jobsdir/$targetdir/$war&quot;
 def cmdtext2 = cmd2.execute().text
