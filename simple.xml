@@ -34,8 +34,7 @@ def userpasssplit = userpass.split(&apos;:&apos;)
 def user = userpasssplit[0]
 def pwd = userpasssplit[1]
 
-
-def x1 = &quot;JAVA_HOME=/usr/lib/jvm/java; /tmp/grails/2.4.0/bin/grails war&quot;
+def x1 = &quot;/var/lib/jenkins/jobs/simple/workspace/build-grails&quot;
 def x1text = x1.execute().text
 println x1text
 
