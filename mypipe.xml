@@ -21,22 +21,43 @@
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.23">
     <script>node {
-    stage &apos;getpassword&apos;
 
+    stage &apos;build&apos;
+    git &apos;https://github.com/craigwongva/lime.git&apos;
+    def x1 = &quot;/var/lib/jenkins/jobs/mypipe/workspace/build-grails-mypipe&quot;
+    def x1text = x1.execute().text
+    println &quot;@1&quot;
+    println x1text
+    
+    stage &apos;cf login&apos;
     withCredentials([usernameColonPassword(credentialsId: &apos;12345&apos;, variable: &apos;USERPASS&apos;)]) {
         //println &quot;${env.JOB_NAME} is where its at, $USERPASS is a nice visit&quot;
         def userpasssplit = USERPASS.split(&apos;:&apos;)
         def user = userpasssplit[0]
         def pwd = userpasssplit[1]
         println &quot;$user,$pwd&quot;        
+
+        def cfcmd = &quot;/cf&quot;
+        def cftarget = &quot;https://api.devops.geointservices.io&quot;
+        def cfskip = &quot;--skip-ssl-validation&quot;
+        def cforg = &quot;piazza&quot;
+        def cfspace = &quot;int&quot;
+        def cmd = &quot;$cfcmd login -a $cftarget -u $user -p $pwd -o $cforg -s $cfspace $cfskip&quot;
+        def cmdtext = cmd.execute().text
+        println &quot;@2&quot;
+        println cmdtext    
     }
     
-    stage &apos;build&apos;
-    git &apos;https://github.com/craigwongva/lime.git&apos;
-    def x1 = &quot;/var/lib/jenkins/jobs/mypipe/workspace/build-grails-mypipe&quot;
-    def x1text = x1.execute().text
-    println &quot;@1&quot;
-    println x1text    
+    stage &apos;cf push&apos;
+    def cfcmd = &quot;/cf&quot;    
+    def appname = &quot;banno&quot;    
+    def jobsdir = &quot;/var/lib/jenkins/jobs&quot;
+    def targetdir = &quot;mypipe/workspace/target&quot;
+    def war = &quot;blue-0.1.war&quot;
+    def cmd2 = &quot;$cfcmd push $appname -p $jobsdir/$targetdir/$war&quot;
+    def cmdtext2 = cmd2.execute().text
+    println &quot;@3&quot;
+    println cmdtext2
 }</script>
     <sandbox>false</sandbox>
   </definition>
