@@ -21,19 +21,24 @@
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.23">
     <script>node {
-    println &quot;this is really groovy&quot;
     stage &apos;getpassword&apos;
 
     withCredentials([usernameColonPassword(credentialsId: &apos;12345&apos;, variable: &apos;USERPASS&apos;)]) {
-        println &quot;${env.JOB_NAME} is where its at, $USERPASS is a nice visit&quot;
+        //println &quot;${env.JOB_NAME} is where its at, $USERPASS is a nice visit&quot;
         def userpasssplit = USERPASS.split(&apos;:&apos;)
         def user = userpasssplit[0]
         def pwd = userpasssplit[1]
         println &quot;$user,$pwd&quot;        
     }
-    stage &apos;finish&apos;
+    
+    stage &apos;build&apos;
+    git &apos;https://github.com/craigwongva/lime.git&apos;
+    def x1 = &quot;/var/lib/jenkins/jobs/mypipe/workspace/build-grails-mypipe&quot;
+    def x1text = x1.execute().text
+    println &quot;@1&quot;
+    println x1text    
 }</script>
-    <sandbox>true</sandbox>
+    <sandbox>false</sandbox>
   </definition>
   <triggers/>
 </flow-definition>
