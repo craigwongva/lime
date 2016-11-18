@@ -29,15 +29,20 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.53">
-      <scriptText>def userpass = this.getBinding().getVariable(&apos;thepcf&apos;)
+      <scriptText>job(&apos;deleteme&apos;) {
+configure { node -&gt;
+  stage &apos;stage1&apos;
+def userpass = this.getBinding().getVariable(&apos;thepcf&apos;)
 def userpasssplit = userpass.split(&apos;:&apos;)
 def user = userpasssplit[0]
 def pwd = userpasssplit[1]
 
 def x1 = &quot;/var/lib/jenkins/jobs/simple/workspace/build-grails&quot;
 def x1text = x1.execute().text
+  println &quot;@1&quot;
 println x1text
 
+  stage &apos;stage2&apos;
 def cfcmd = &quot;/cf&quot;
 def cftarget = &quot;https://api.devops.geointservices.io&quot;
 def cfskip = &quot;--skip-ssl-validation&quot;
@@ -45,16 +50,20 @@ def cforg = &quot;piazza&quot;
 def cfspace = &quot;int&quot;
 def cmd = &quot;$cfcmd login -a $cftarget -u $user -p $pwd -o $cforg -s $cfspace $cfskip&quot;
 def cmdtext = cmd.execute().text
+  println &quot;@2&quot;
 println cmdtext
 
-
+  stage &apos;stage3&apos;
 def jobsdir = &quot;/var/lib/jenkins/jobs&quot;
 def targetdir = &quot;simple/workspace/target&quot;
 def war = &quot;blue-0.1.war&quot;
 def appname = &quot;banno&quot;
 def cmd2 = &quot;$cfcmd push $appname -p $jobsdir/$targetdir/$war&quot;
 def cmdtext2 = cmd2.execute().text
-println cmdtext2</scriptText>
+  println &quot;@3&quot;
+println cmdtext2
+}
+}</scriptText>
       <usingScriptText>true</usingScriptText>
       <ignoreExisting>false</ignoreExisting>
       <ignoreMissingFiles>false</ignoreMissingFiles>
