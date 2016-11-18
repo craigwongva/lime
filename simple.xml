@@ -29,14 +29,24 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.53">
+      <scriptText>def x1 = &quot;/var/lib/jenkins/jobs/simple/workspace/build-grails&quot;
+def x1text = x1.execute().text
+println &quot;@1&quot;
+println x1text</scriptText>
+      <usingScriptText>true</usingScriptText>
+      <ignoreExisting>false</ignoreExisting>
+      <ignoreMissingFiles>false</ignoreMissingFiles>
+      <failOnMissingPlugin>false</failOnMissingPlugin>
+      <unstableOnDeprecation>false</unstableOnDeprecation>
+      <removedJobAction>IGNORE</removedJobAction>
+      <removedViewAction>IGNORE</removedViewAction>
+      <lookupStrategy>JENKINS_ROOT</lookupStrategy>
+    </javaposse.jobdsl.plugin.ExecuteDslScripts>
+    <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.53">
       <scriptText>def userpass = this.getBinding().getVariable(&apos;thepcf&apos;)
 def userpasssplit = userpass.split(&apos;:&apos;)
 def user = userpasssplit[0]
 def pwd = userpasssplit[1]
-
-def x1 = &quot;/var/lib/jenkins/jobs/simple/workspace/build-grails&quot;
-def x1text = x1.execute().text
-println x1text
 
 def cfcmd = &quot;/cf&quot;
 def cftarget = &quot;https://api.devops.geointservices.io&quot;
@@ -45,46 +55,28 @@ def cforg = &quot;piazza&quot;
 def cfspace = &quot;int&quot;
 def cmd = &quot;$cfcmd login -a $cftarget -u $user -p $pwd -o $cforg -s $cfspace $cfskip&quot;
 def cmdtext = cmd.execute().text
-//println cmd
-println cmdtext
+println &quot;@2&quot;
+println cmdtext</scriptText>
+      <usingScriptText>true</usingScriptText>
+      <ignoreExisting>false</ignoreExisting>
+      <ignoreMissingFiles>false</ignoreMissingFiles>
+      <failOnMissingPlugin>false</failOnMissingPlugin>
+      <unstableOnDeprecation>false</unstableOnDeprecation>
+      <removedJobAction>IGNORE</removedJobAction>
+      <removedViewAction>IGNORE</removedViewAction>
+      <lookupStrategy>JENKINS_ROOT</lookupStrategy>
+    </javaposse.jobdsl.plugin.ExecuteDslScripts>
+    <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.53">
+      <scriptText>def cfcmd = &quot;/cf&quot;
 
-
-//def jobsdir = &quot;/home/ec2-user/jenkins-1.658-4/apps/jenkins/jenkins_home/jobs&quot;
+def appname = &quot;banno&quot;
 def jobsdir = &quot;/var/lib/jenkins/jobs&quot;
 def targetdir = &quot;simple/workspace/target&quot;
 def war = &quot;blue-0.1.war&quot;
-def appname = &quot;banno&quot;
 def cmd2 = &quot;$cfcmd push $appname -p $jobsdir/$targetdir/$war&quot;
 def cmdtext2 = cmd2.execute().text
-println cmdtext2
-
-/* this pushes to Nexus. so what? 
-println &quot;here we go&quot;
-//def jobsdir3 = &quot;/home/ec2-user/jenkins-1.658-4/apps/jenkins/jenkins_home/jobs&quot;
-def jobsdir3 = &quot;/var/lib/jenkins/jobs&quot;
-def targetdir3 = &quot;simplecfpushwithnexus/workspace&quot;
-def cmd3 = &quot;curl --user &apos;admin:admin123&apos; --upload-file $jobsdir3/$targetdir3/blue-0.1.warx http://35.162.67.76:8081/repository/myrawrepo/first_webapp_from_nexus&quot;
-//println cmd3
-//def cmdtext3 = cmd3.execute().text
-//println cmdtext3
-
-
-//curl --user &apos;admin:admin123&apos; --upload-file blue-0.1.war http://localhost:8081/repository/myrawrepo/first_webapp_from_nexus
-
-//process = [ &apos;bash&apos;, &apos;-c&apos;, &quot;curl -v -k -X POST -H \&quot;Content-Type: application/json\&quot; -d &apos;${json}&apos; https://username:password@anotherhost.com:9443/restendpoint&quot; ].execute().tex
-
-//def mickey = [
-// &quot;curl&quot;, &quot;--user&quot;, &quot;&apos;admin:admin123&apos;&quot;, &quot;--upload-file&quot;, &quot;$jobsdir3/$targetdir3/blue-0.1.war&quot;, &quot;http://35.162.67.76:8081/repository/myrawrepo/first_webapp_from_nexus&quot;] 
-def mickey = [
-//succeeds: &quot;curl&quot;, &quot;--user&quot;, &quot;admin:admin123&quot;, &quot;http://35.162.67.76:8081/repository/myrawrepo&quot;] 
- &quot;curl&quot;, &quot;--user&quot;, &quot;admin:admin123&quot;, &quot;--upload-file&quot;, &quot;/home/ec2-user/jenkins-1.658-4/apps/jenkins/jenkins_home/jobs/simplecfpushwithnexus/workspace/blue-0.1.war&quot;, &quot;http://35.162.67.76:8081/repository/myrawrepo/happy&quot;].execute()
-
-mickey.waitFor()
-println mickey.err.text
-println &quot;here comes the answer&quot;
-println mickey.text
-println &quot;that&apos;s all folks&quot;
-*/</scriptText>
+println &quot;@3&quot;
+println cmdtext2</scriptText>
       <usingScriptText>true</usingScriptText>
       <ignoreExisting>false</ignoreExisting>
       <ignoreMissingFiles>false</ignoreMissingFiles>
