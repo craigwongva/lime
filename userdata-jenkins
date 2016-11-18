@@ -10,6 +10,7 @@ java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin job-dsl       
 java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin workflow-aggregator  &> $TMP-1900
 java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin groovy               &> $TMP-2000
 java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin credentials-binding  &> $TMP-2100
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin pipeline-stage-view  &> $TMP-2200
 #-->manually add a Maven "M1"
 #-->manually add a Groovy "G1"
 sudo service jenkins stop                                          &> $TMP-2400
