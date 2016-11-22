@@ -30,8 +30,7 @@ unzip sonar-scanner-2.8.zip                                    &> $TMP-1900
 #mkdir apple
 #cp banana/src/main/java/apple/App.java apple/
 #cd apple
-#Use -D parmjs instead of "vi sonar-project.properties"
 
-
-#~/sonar-scanner-2.8/bin/sonar-scanner
+#Use -D parmjs instead of "vi sonar-project.properties":
+~/sonar-scanner-2.8/bin/sonar-scanner -Dsonar.projectKey=boxprojectkey -Dsonar.projectName=boxprojectname -Dsonar.projectVersion=boxprojectversion -Dsonar.sources=. &> $TMP-2000
 
