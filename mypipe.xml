@@ -49,6 +49,17 @@ node {
     def cmdtext2 = cmd2.execute().text
     println &quot;@3&quot;
     println cmdtext2
+    
+    stage &apos;push to nexus&apos;
+    def mickey = [
+      &quot;curl&quot;,
+      &quot;--user&quot;, 
+      &quot;admin:admin123&quot;, 
+      &quot;--upload-file&quot;, 
+      &quot;/var/lib/jenkins/jobs/mypipe/workspace/target/blue-0.1.war&quot;, 
+      &quot;http://localhost:8079/repository/myrawrepo/blue-0.1.war&quot;].execute().text
+    println &quot;@4&quot;
+    println mickey
 }</script>
     <sandbox>false</sandbox>
   </definition>
