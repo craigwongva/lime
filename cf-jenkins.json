@@ -45,7 +45,8 @@
 "sudo -u ec2-user bash -c 'cd /home/ec2-user; git clone https://github.com/craigwongva/lime.git > /tmp/u01 2>&1 '\n",
 "sudo -u ec2-user bash -c 'cd /home/ec2-user/lime; ./userdata-jenkins > /tmp/u03d 2>&1'\n",
 "sudo -u ec2-user bash -c 'cd /home/ec2-user/lime; ./userdata-nexus-only > /tmp/u04d 2>&1'\n",
-"sudo -u ec2-user bash -c 'cd /home/ec2-user/lime; ./userdata-grails-green > /tmp/u05d 2>&1'\n"
+"sudo -u ec2-user bash -c 'cd /home/ec2-user/lime; ./userdata-grails-green > /tmp/u05d 2>&1'\n",
+"sudo -u ec2-user bash -c 'cd /home/ec2-user/lime; ./userdata-sonar > /tmp/u06d 2>&1'\n"
      ]
     ]}}
    }
