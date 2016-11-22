@@ -1,0 +1,33 @@
+export TMP=/tmp/sonar
+
+cd /home/ec2-user                                              &> $TMP-1000
+wget https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-5.6.2.zip &> $TMP-1100
+unzip sonarqube-5.6.2.zip                                      &> $TMP-1200
+
+yum install java-1.8.0-openjdk-devel -y                        &> $TMP-1300
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk               &> $TMP-1400
+
+#edit /home/ec2-user/sonarqube-5.6.2/conf/wrapper.conf
+# and alter this line:
+#  wrapper.java.command=/usr/lib/jvm/java-1.8.0-openjdk/bin/java
+
+cd /home/ec2-user/sonarqube-5.6.2/bin/linux-x86-64             &> $TMP-1500
+./sonar.sh start                                               &> $TMP-1600
+./sonar.sh console                                             &> $TMP-1700
+
+#Scanner is a separate thing from the server or console,
+#so here is how to install it...
+wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-2.8.zip &> $TMP-1800
+unzip sonar-scanner-2.8.zip                                    &> $TMP-1900
+
+#...and here is how to use it to scan and place results into h2.
+#cd /home/ec2-user
+#git clone https://github.com/craigwongva/banana
+#mkdir apple
+#cp banana/src/main/java/apple/App.java apple/
+#cd apple
+#Use -D parmjs instead of "vi sonar-project.properties"
+
+
+#~/sonar-scanner-2.8/bin/sonar-scanner
+
