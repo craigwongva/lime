@@ -4,7 +4,7 @@ cd /home/ec2-user                                              &> $TMP-1000
 wget https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-5.6.2.zip &> $TMP-1100
 unzip sonarqube-5.6.2.zip                                      &> $TMP-1200
 
-yum install java-1.8.0-openjdk-devel -y                        &> $TMP-1300
+sudo yum install java-1.8.0-openjdk-devel -y                        &> $TMP-1300
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk               &> $TMP-1400
 
 #edit /home/ec2-user/sonarqube-5.6.2/conf/wrapper.conf
