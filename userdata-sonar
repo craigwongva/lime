@@ -10,6 +10,9 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk               &> $TMP-1400
 #edit /home/ec2-user/sonarqube-5.6.2/conf/wrapper.conf
 # and alter this line:
 #  wrapper.java.command=/usr/lib/jvm/java-1.8.0-openjdk/bin/java
+sed -i '1,$s/wrapper.java.command/wrapper.java.command=\/usr\/lib\/jvm\/java-1.8.0-openjdk\/bin\/java/' /home/ec2-user/sonarqube-5.6.2/conf/wrapper.conf
+sed -i '1,$s/.$//' /home/ec2-user/sonarqube-5.6.2/conf/wrapper.conf #remove ^M
+
 
 cd /home/ec2-user/sonarqube-5.6.2/bin/linux-x86-64             &> $TMP-1500
 ./sonar.sh start                                               &> $TMP-1600
