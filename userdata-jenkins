@@ -16,9 +16,6 @@ java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin pipeline-stage
 sudo service jenkins stop                                          &> $TMP-2400
 sudo service jenkins start                                         &> $TMP-2500
 sleep 3m                                                           &> $TMP-2600
-java -jar jenkins-cli.jar -s http://localhost:8080 create-job hello < hello.xml        &> $TMP-2700
-java -jar jenkins-cli.jar -s http://localhost:8080 create-job simple < simple.xml      &> $TMP-2800
-java -jar jenkins-cli.jar -s http://localhost:8080 create-job walmartty < walmartty.xml &> $TMP-2900
 java -jar jenkins-cli.jar -s http://localhost:8080 create-job mypipe < mypipe.xml      &> $TMP-2950
 
 
