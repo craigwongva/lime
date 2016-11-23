@@ -1,6 +1,5 @@
 export TMP=/tmp/run
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk &> $TMP-1000
 cd /var/lib/jenkins/jobs/mypipe/workspace        &> $TMP-1100
-cd /home/ec2-user/lime                           &> $TMP-1105
 /home/ec2-user/sonar-scanner-2.8/bin/sonar-scanner -Dsonar.projectKey=boxprojectkey -Dsonar.projectName=boxprojectname -Dsonar.projectVersion=boxprojectversion -Dsonar.sources=. &> $TMP-1300
 
