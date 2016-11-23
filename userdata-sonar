@@ -37,3 +37,4 @@ sleep 2m #1m is insufficient
 cd ~/lime
 ~/sonar-scanner-2.8/bin/sonar-scanner -Dsonar.projectKey=boxprojectkey -Dsonar.projectName=boxprojectname -Dsonar.projectVersion=boxprojectversion -Dsonar.sources=. &> $TMP-2000
 
+sudo chmod 755 /home/ec2-user
