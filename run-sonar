@@ -1,6 +1,6 @@
 export TMP=/tmp/run
-export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
-cd /var/lib/jenkins/jobs/mypipe/workspace 
-sudo chmod 755 /home/ec2-user
-/home/ec2-user/sonar-scanner-2.8/bin/sonar-scanner -Dsonar.projectKey=boxprojectkey -Dsonar.projectName=boxprojectname -Dsonar.projectVersion=boxprojectversion -Dsonar.sources=. &> sonar-scan-results
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk &> $TMP-1000
+cd /var/lib/jenkins/jobs/mypipe/workspace        &> $TMP-1100
+sudo chmod 755 /home/ec2-user                    &> $TMP-1200
+/home/ec2-user/sonar-scanner-2.8/bin/sonar-scanner -Dsonar.projectKey=boxprojectkey -Dsonar.projectName=boxprojectname -Dsonar.projectVersion=boxprojectversion -Dsonar.sources=. &> $TMP-1300
 
