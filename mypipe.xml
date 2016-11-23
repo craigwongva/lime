@@ -13,7 +13,7 @@
 println foo
 
 node {
-
+/*
     stage &apos;build&apos;
     git &apos;https://github.com/craigwongva/lime.git&apos;
     def x1 = &quot;/var/lib/jenkins/jobs/mypipe/workspace/build-grails-mypipe&quot;
@@ -60,6 +60,23 @@ node {
       &quot;http://localhost:8079/repository/myrawrepo/blue-0.1.war&quot;].execute().text
     println &quot;@4&quot;
     println mickey
+*/
+
+    stage &apos;sonar&apos;
+/*    
+    def cmd3 = &quot;/home/ec2-user/sonar-scanner-2.8/bin/sonar-scanner &quot;
+    cmd3 += &quot;-Dsonar.verbose=true &quot;
+    cmd3 += &quot;-Dsonar.projectKey=boxprojectkey &quot;
+    cmd3 += &quot;-Dsonar.projectName=boxprojectname &quot;
+    cmd3 += &quot;-Dsonar.projectVersion=boxprojectversion &quot;
+    cmd3 += &quot;-Dsonar.sources=.&quot;
+*/    
+    def cmd3 = &quot;/var/lib/jenkins/jobs/mypipe/workspace/run-sonar&quot;
+    //I am Jenkins running from /
+    def cmdtext3 = cmd3.execute().text
+    println &quot;@4&quot;
+    println cmdtext3
+
 }</script>
     <sandbox>false</sandbox>
   </definition>
