@@ -9,8 +9,13 @@
     </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.23">
-    <script>def foo = &apos;bar&apos;
-println foo
+    <script>def sendEmailViaSES(successOrFailure) {
+    println successOrFailure
+    def x5 = &quot;python /var/lib/jenkins/jobs/mypipe/workspace/ses.py mypipe $successOrFailure&quot;.execute()
+    x5.waitFor()
+    println x5.text
+    println x5.err.text    
+}
 
 node {
     stage &apos;git&apos;
@@ -69,8 +74,12 @@ node {
     stage &apos;examine project&apos;
     def x4 = &apos;cat /tmp/run-1300&apos;.execute() | [&apos;grep&apos;, &apos;EXECUTION SUCCESS&apos;].execute()
     x4.waitFor()
-    if (x4.text.size() == 0) {    
+    if (x4.text.size() == 0) {
+        sendEmailViaSES(&apos;failure&apos;)
         &apos;intentionally-fail-this-jenkins-job&apos;.execute()
+    }
+    else {
+        sendEmailViaSES(&apos;success&apos;)
     }
 }</script>
     <sandbox>false</sandbox>
