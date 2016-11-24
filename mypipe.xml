@@ -23,11 +23,8 @@ node {
     println x1text
     
     stage &apos;cf login&apos;
-    withCredentials([usernameColonPassword(credentialsId: &apos;12345&apos;, variable: &apos;USERPASS&apos;)]) {
-        //println &quot;${env.JOB_NAME} is where its at, $USERPASS is a nice visit&quot;
-        def userpasssplit = USERPASS.split(&apos;:&apos;)
-        def user = userpasssplit[0]
-        def pwd = userpasssplit[1]
+    withCredentials([usernamePassword(credentialsId: &apos;12345&apos;, passwordVariable: &apos;pwd&apos;, usernameVariable: &apos;user&apos;)]) {
+        //println &quot;${env.JOB_NAME} is where its at&quot;
 
         def cfcmd = &quot;/cf&quot;
         def cftarget = &quot;https://api.devops.geointservices.io&quot;
@@ -39,7 +36,7 @@ node {
         println &quot;@2&quot;
         println cmdtext    
     }
-    
+
     stage &apos;cf push&apos;
     def cfcmd = &quot;/cf&quot;    
     def appname = &quot;banno&quot;    
