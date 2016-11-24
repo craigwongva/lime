@@ -13,9 +13,10 @@
 println foo
 
 node {
+    stage &apos;git&apos;
+    git &apos;https://github.com/craigwongva/lime.git&apos;
 
     stage &apos;build&apos;
-    git &apos;https://github.com/craigwongva/lime.git&apos;
     def x1 = &quot;/var/lib/jenkins/jobs/mypipe/workspace/build-grails-mypipe&quot;
     def x1text = x1.execute().text
     println &quot;@1&quot;
@@ -68,6 +69,12 @@ node {
     println &quot;@4&quot;
     println cmdtext3
 
+    stage &apos;examine project&apos;
+    def x4 = &apos;cat /tmp/run-1300&apos;.execute() | [&apos;grep&apos;, &apos;EXECUTION SUCCESS&apos;].execute()
+    x4.waitFor()
+    if (x4.text.size() == 0) {    
+        &apos;intentionally-fail-this-jenkins-job&apos;.execute()
+    }
 }</script>
     <sandbox>false</sandbox>
   </definition>
