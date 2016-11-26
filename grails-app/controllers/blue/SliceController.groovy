@@ -1,8 +1,6 @@
 package blue
 
 import groovy.json.*
-//import groovyx.net.http.*
-//import static groovyx.net.http.ContentType.JSON
 
 class SliceController {
 
@@ -19,23 +17,18 @@ class SliceController {
     }
 
     def random = {
-def env = System.getenv()
-//Print all the environment variables.
-
-env.each{
-println it
-} 
-// You can also access the specific variable, say 'username', as show below 
-String user= env['USERNAME']
-	def staticAuthor = env.grep{it.key=='VCAP_SERVICES'} //['alabama','georgia','florida'] //'Anonymous'
-	def staticContent = 'Red Sky at Dawn'
-//[{"user-provided":[{ "credentials": { "password": "judy", "username": "craig" }, "syslog_drain_url": "", "volume_mounts": [ ], "label": "user-provided", "name": "myups", "tags": [ ] }]}]
-	//this is a string:
+	def env = System.getenv()
+	def vcs = env.grep{it.key=='VCAP_SERVICES'} 
+	//VCAP_SERVICES looks like this:
+	//[{"user-provided":[{ "credentials": { "password": "judy", "username": "craig" }, "syslog_drain_url": "", "volume_mounts": [ ], "label": "user-provided", "name": "myups", "tags": [ ] }]}]
+	//This is a string:
 	//{"user-provided":[{ "credentials": { "password": "judy", "username": "craig" }, "syslog_drain_url": "", "volume_mounts": [ ], "label": "user-provided", "name": "myups", "tags": [ ] }]}
 	def jsonSlurper = new JsonSlurper()
-	def object = jsonSlurper.parseText(
-	 staticAuthor.value[0])
-	def credentials = object."user-provided"[0].credentials //{password=judy, username=craig}
-	[ credjson: credentials, credslashstring: credentials.username + '/' + credentials.password ]
+	def object = jsonSlurper.parseText(vcs.value[0])
+	def credentials = object."user-provided"[0].credentials 
+	//credentials looks like this:
+	//{password=judy, username=craig}
+	[credjson: credentials, 
+         credslashstring: credentials.username + '/' + credentials.password ]
     }
 }
