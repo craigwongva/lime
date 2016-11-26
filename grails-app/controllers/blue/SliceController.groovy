@@ -35,6 +35,6 @@ String user= env['USERNAME']
 	def jsonSlurper = new JsonSlurper()
 	def object = jsonSlurper.parseText(
 	 staticAuthor.value[0])
-	[ author: object."user-provided", content: staticContent ]
+	[ author: object."user-provided"[0].credentials, content: staticContent ]
     }
 }
