@@ -4,7 +4,7 @@
 </head>
 
 <body>
- <q>${content}</q>
- <p>${author}</p>
+ <q>${credjson}</q>
+ <p>${credslashstring}</p>
 </body>
 </html>
