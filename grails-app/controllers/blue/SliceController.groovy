@@ -3,6 +3,6 @@ package blue
 class SliceController {
 
     def index() { 
-        [friend: 'Monica']
+        render([friend: 'Monica'])
     }
 }
