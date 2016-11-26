@@ -3,7 +3,7 @@ In CloudFormation run cf-jenkins.json.
 Add credential (for PCF).
 
 After building, use this to capture the config.xml:
-java -jar jenkins-cli.jar -s http://localhost:8080/ get-job atmosphere-pipeline
+java -jar jenkins-cli.jar -s http://localhost:8080/ get-job mypipe > mypipe.xml
 
 The Sonar Scanner results are created via lime/run-sonar, and the output goes to the arbitrary location /tmp/run-1300.
 
