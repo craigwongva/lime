@@ -15,7 +15,7 @@ class SliceController {
     }
 
     def random = {
-	def staticAuthor = 'Anonymous'
+	def staticAuthor = ['alabama','georgia','florida'] //'Anonymous'
 	def staticContent = 'Red Sky at Dawn'
 	[ author: staticAuthor, content: staticContent ]
     }
