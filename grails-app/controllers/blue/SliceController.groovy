@@ -3,7 +3,7 @@ package blue
 class SliceController {
 
     def index() { 
-        render(contentType: 'text/json'){['friend': 'Monica']}
+        render(model:['friend': 'Monica'])
 /*
         render(contentType: 'text/json') {[
             'dotStatus': stringOfDotStatusEachRepresentsAPiazzaJob(),
