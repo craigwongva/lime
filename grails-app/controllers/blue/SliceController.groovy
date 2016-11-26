@@ -15,7 +15,15 @@ class SliceController {
     }
 
     def random = {
-	def staticAuthor = ['alabama','georgia','florida'] //'Anonymous'
+def env = System.getenv()
+//Print all the environment variables.
+
+env.each{
+println it
+} 
+// You can also access the specific variable, say 'username', as show below 
+String user= env['USERNAME']
+	def staticAuthor = env //['alabama','georgia','florida'] //'Anonymous'
 	def staticContent = 'Red Sky at Dawn'
 	[ author: staticAuthor, content: staticContent ]
     }
