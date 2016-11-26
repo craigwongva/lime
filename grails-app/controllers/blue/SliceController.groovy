@@ -28,6 +28,6 @@ String user= env['USERNAME']
 //[{"user-provided":[{ "credentials": { "password": "judy", "username": "craig" }, "syslog_drain_url": "", "volume_mounts": [ ], "label": "user-provided", "name": "myups", "tags": [ ] }]}]
 	//fails: [ author: staticAuthor.value[0]["user-provided"], content: staticContent ]
 	//fails: [ author: staticAuthor.value.grep{it.key=='user-provided'}, content: staticContent ]
-	[ author: staticAuthor.value.getClass(), content: staticContent ]
+	[ author: staticAuthor.value[0].getClass(), content: staticContent ]
     }
 }
