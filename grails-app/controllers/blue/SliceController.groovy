@@ -1,5 +1,9 @@
 package blue
 
+import groovy.json.*
+import groovyx.net.http.*
+import static groovyx.net.http.ContentType.JSON
+
 class SliceController {
 
     def index() { 
