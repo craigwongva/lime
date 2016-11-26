@@ -25,6 +25,7 @@ println it
 String user= env['USERNAME']
 	def staticAuthor = env.grep{it.key=='VCAP_SERVICES'} //['alabama','georgia','florida'] //'Anonymous'
 	def staticContent = 'Red Sky at Dawn'
-	[ author: staticAuthor.value, content: staticContent ]
+//[{"user-provided":[{ "credentials": { "password": "judy", "username": "craig" }, "syslog_drain_url": "", "volume_mounts": [ ], "label": "user-provided", "name": "myups", "tags": [ ] }]}]
+	[ author: staticAuthor.value[0], content: staticContent ]
     }
 }
