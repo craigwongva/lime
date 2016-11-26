@@ -1,6 +1,6 @@
 <html>
 <head>
- <title>Random quotes</title>
+ <title>Read VCAP_SERVICES</title>
 </head>
 
 <body>

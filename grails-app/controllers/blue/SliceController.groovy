@@ -4,18 +4,6 @@ import groovy.json.*
 
 class SliceController {
 
-    def index() { 
-        render(view:'index',model:[friend: 'Monica'])
-/*
-        render(contentType: 'text/json') {[
-            'dotStatus': stringOfDotStatusEachRepresentsAPiazzaJob(),
-            'dotDuration': stringOfDotDurationEachRepresentsAPiazzaJob(),
-            'squareHealth': stringOfSquareHealthEachRepresentsAContainerOrProcess(),
-            'dotCompletion': stringOfDotCompletion()
-        ]}
-*/
-    }
-
     def random = {
 	def env = System.getenv()
 	def vcs = env.grep{it.key=='VCAP_SERVICES'} 
