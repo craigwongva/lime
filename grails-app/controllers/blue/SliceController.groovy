@@ -2,5 +2,7 @@ package blue
 
 class SliceController {
 
-    def index() { }
+    def index() { 
+        [friend: 'Monica']
+    }
 }
