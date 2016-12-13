@@ -88,4 +88,29 @@ node {
 node {
     stage 'git'
     git 'https://github.com/craigwongva/lime.git'
+
+    stage 'build'
+    def x1 = "/var/lib/jenkins/jobs/mypipe/workspace/build-grails-mypipe"
+    def x1text = x1.execute().text
+    println "@1"
+    println x1text
+    stage 'cf login'
+    withCredentials([usernamePassword(credentialsId: '12345', passwordVariable: 'pwd', usernameVariable: 'user')]) {
+        //println "${env.JOB_NAME} is where its at"
+
+        def cfcmd = "/cf"
+        def cftarget = "https://api.devops.geointservices.io"
+        //cftarget = "https://api.run.pivotal.io"
+        def cfskip = "--skip-ssl-validation"
+        //cfskip = ""
+        def cforg = "piazza"
+        //cforg = "redf4th"
+        def cfspace = "int"
+        //cfspace = "development"
+        def cmd = "$cfcmd login -a $cftarget -u $user -p $pwd -o $cforg -s $cfspace $cfskip"
+        def cmdtext = cmd.execute().text
+        println "@2"
+        println cmdtext    
+    }
+
 }
