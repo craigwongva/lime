@@ -33,19 +33,18 @@ node {
 
         def cfcmd = &quot;/cf&quot;
         def cftarget = &quot;https://api.devops.geointservices.io&quot;
-        cftarget = &quot;https://api.run.pivotal.io&quot;
+        //cftarget = &quot;https://api.run.pivotal.io&quot;
         def cfskip = &quot;--skip-ssl-validation&quot;
-        cfskip = &quot;&quot;
+        //cfskip = &quot;&quot;
         def cforg = &quot;piazza&quot;
-        cforg = &quot;redf4th&quot;
+        //cforg = &quot;redf4th&quot;
         def cfspace = &quot;int&quot;
-        cfspace = &quot;development&quot;
+        //cfspace = &quot;development&quot;
         def cmd = &quot;$cfcmd login -a $cftarget -u $user -p $pwd -o $cforg -s $cfspace $cfskip&quot;
         def cmdtext = cmd.execute().text
         println &quot;@2&quot;
         println cmdtext    
     }
-
 
     stage &apos;cf push&apos;
     def cfcmd = &quot;/cf&quot;    
@@ -86,6 +85,13 @@ node {
     else {
         sendEmailViaSES(&apos;success&apos;)
     }
+    
+    stage &apos;map-route&apos;
+    println &quot;map-route start&quot;    
+    def x5 = &apos;./cf map-route banno int.geointservices.io --hostname white&apos;.execute()
+    x5.waitFor()
+    println x5.text
+    println &quot;map-route end&quot;
 }</script>
     <sandbox>false</sandbox>
   </definition>
