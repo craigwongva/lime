@@ -92,6 +92,7 @@ node {
     stage 'build'
     def x1 = "/var/lib/jenkins/jobs/mypipe/workspace/build-grails-mypipe"
     def x1text = x1.execute().text
+/*
     println "@1"
     println x1text
     stage 'cf login'
@@ -112,5 +113,5 @@ node {
         println "@2"
         println cmdtext    
     }
-
+*/
 }
