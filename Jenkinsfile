@@ -86,4 +86,6 @@ node {
 }
 */
 node {
+    stage 'git'
+    git 'https://github.com/craigwongva/lime.git'
 }
