@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-
+/*
 def sendEmailViaSES(successOrFailure) {
     println successOrFailure
     def x5 = "python /var/lib/jenkins/jobs/mypipe/workspace/ses.py mypipe $successOrFailure".execute()
@@ -83,4 +83,7 @@ node {
     x5.waitFor()
     println x5.text
     println "map-route end"
+}
+*/
+node {
 }
