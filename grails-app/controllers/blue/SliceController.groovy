@@ -19,4 +19,28 @@ class SliceController {
 	[credjson: credentials, 
          credslashstring: credentials.username + '/' + credentials.password ]
     }
+
+    def servers = {
+	    def allInstances = []
+	    def allTagged = [:]
+	    def all = "aws ec2 describe-instances --filter Name=key-name,Values=peizer Name=image-id,Values=ami-5ec1673e --query Reservations[].Instances[].[InstanceId] --region us-west-2 --output text".execute()
+	    allInstances = all.text.split()
+	def projects = ['beachfront', 'piazza']
+	projects.each { p ->
+	    def tagged = "aws ec2 describe-instances --filter Name=key-name,Values=peizer Name=image-id,Values=ami-5ec1673e Name=tag:craigproject,Values=$p --query Reservations[].Instances[].[InstanceId] --region us-west-2 --output text".execute()
+	    allTagged[p] = tagged.text.split()
+	}
+	println "allInstances is $allInstances"
+	def untaggedInstances = allInstances
+	projects.each { p ->
+	    allTagged[p].each { i ->
+		println "$p/$i"
+	    }
+	    untaggedInstances -= allTagged[p]
+	}
+	untaggedInstances.each { i ->
+	    println "untagged/$i"
+	}
+        render 'leaving servers5'
+    }
 }
