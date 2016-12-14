@@ -20,7 +20,7 @@ To demo it:
 
 In Jenkins job 'mypipe' make sure the cf push is pushing to cfapps.io.
 In Jenkins build the mypipe project. 
-http://banno.cfapps.io/slice/random
+http://banno.cfapps.io/blue/slice/random
 You should see:
 {password=judy, username=craig}
 craig/judy
