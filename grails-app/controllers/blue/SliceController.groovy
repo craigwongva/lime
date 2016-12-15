@@ -21,26 +21,47 @@ class SliceController {
     }
 
     def servers = {
-	    def allInstances = []
-	    def allTagged = [:]
-	    def all = "aws ec2 describe-instances --filter Name=key-name,Values=peizer Name=image-id,Values=ami-5ec1673e --query Reservations[].Instances[].[InstanceId] --region us-west-2 --output text".execute()
-	    allInstances = all.text.split()
-	def projects = ['beachfront', 'piazza']
+	def allProjectValuesAsNameCRLFValue = []
+	//The following returns a literal 'Project' on one line, then a value like 'beachfront-int' on the next line.
+        def getAllProjectValuesAsNameCRLFValue = "aws ec2 describe-instances --filter Name=tag-key,Values=Project --query Reservations[].Instances[].[Tags] --region us-west-2 --output text".execute()
+	allProjectValuesAsNameCRLFValue = getAllProjectValuesAsNameCRLFValue.text.split()
+	int allProjectValuesAsNameCRLFValueSize = allProjectValuesAsNameCRLFValue.size()
+
+	def allProjectValues = []
+	for (int i=0; i<allProjectValuesAsNameCRLFValueSize; i += 2) {
+	    if (allProjectValuesAsNameCRLFValue[i] == 'Project') {
+		allProjectValues.add(allProjectValuesAsNameCRLFValue[i+1])
+	    }
+	}
+
+	//Use a list of allInstances to determine which instancs are untagged,
+	// because the CLI doesn't seem to allow the same wildcards that the EC2 Dashboard GUI filter window allows
+	// e.g. "Not tagged" in "tag:Project : Not tagged"
+	def allInstances = []
+	def allTagged = [:]
+	//The following returns one InstanceId value per line.
+	def all = "aws ec2 describe-instances --query Reservations[].Instances[].[InstanceId] --region us-west-2 --output text".execute()
+	allInstances = all.text.split()
+
+	//Sort the Project values (e.g. beachfront-dev, piazza-int) just for println readability.
+	def projects = allProjectValues.sort()
 	projects.each { p ->
-	    def tagged = "aws ec2 describe-instances --filter Name=key-name,Values=peizer Name=image-id,Values=ami-5ec1673e Name=tag:craigproject,Values=$p --query Reservations[].Instances[].[InstanceId] --region us-west-2 --output text".execute()
+	    //The following returns one InstanceID value per line.
+	    def tagged = "aws ec2 describe-instances --filter Name=tag:Project,Values=$p --query Reservations[].Instances[].[InstanceId] --region us-west-2 --output text".execute()
 	    allTagged[p] = tagged.text.split()
 	}
-	println "allInstances is $allInstances"
+
 	def untaggedInstances = allInstances
 	projects.each { p ->
 	    allTagged[p].each { i ->
-		println "$p/$i"
+		println "$i/$p"
 	    }
 	    untaggedInstances -= allTagged[p]
 	}
 	untaggedInstances.each { i ->
-	    println "untagged/$i"
+	    println "$i/untagged"
 	}
+
         render 'leaving servers5'
     }
 }
