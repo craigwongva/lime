@@ -71,6 +71,7 @@ class SliceController {
     	    }
 	}
 */
+
 	//A hardcoded def like this is a java.util.ArrayList:
 	def untaggedInstances = //us-west-2, for testing purposes
 	['i-0f59fea1', 'i-507ba50f', 'i-d527807b', 'i-7a9e3ed4', 'i-788d75ec', 'i-e4aece39', 'i-d127807f', 'i-f64dfe62', 'i-f14dfe65', 'i-eb4efd7f', 'i-2b01db33', 'i-e1aece3c', 'i-1468b2ba', 'i-7a8d75ee', 'i-11c84fcc', 'i-424efdd6', 'i-148e7680', 'i-ff5736e7', 'i-5bd42ccf', 'i-568e76c2', 'i-988f770c', 'i-94078101', 'i-9e4f6486', 'i-558e76c1', 'i-7b8d75ef', 'i-178e7683', 'i-798e76ed', 'i-9daf5709', 'i-f04dfe64', 'i-e2abcb3f', 'i-ea4efd7e', 'i-e3aece3e', 'i-d5afcf08', 'i-2d7a12f0', 'i-413083d5', 'i-e2d52d76', 'i-09d52d9d', 'i-50096148', 'i-9b8f770f', 'i-977b134a', 'i-58d42ccc']
@@ -79,13 +80,26 @@ class SliceController {
 
 	def untaggedInstancesAsArrayList = untaggedInstances.collect{it}
 
+	def tagme = [:]
+	tagme.'us-west-2' = [
+	    'Name=key-name,Values=peizer':'beachfront-dev',
+	    'Name=key-name,Values=crunchy-admin':'crunchy-prod'
+	]
+	tagme.'us-east-1' = [
+	]
 
-	//The following returns a string of whitespace-separated InstanceIds.
-	def peizerWhitespaceSeparatedInstanceIds = "aws ec2 describe-instances --filter Name=key-name,Values=peizer --query Reservations[].Instances[].InstanceId --region us-west-2 --output text".execute()
-	def peizerInstanceIds = peizerWhitespaceSeparatedInstanceIds.text.split()
-	def peizerInstanceIdsAsArrayList = peizerInstanceIds.collect{it}
-	def intersekt = peizerInstanceIdsAsArrayList.intersect(untaggedInstancesAsArrayList)
-	def mycmd = "aws ec2 create-tags --dry-run --resources ${intersekt.join(' ')} --tags Key=Project,Value=beachfront-dev --region us-west-2 " 
-        render mycmd
+	tagme.each { tk, tv ->
+	    tv.each { rk, rv ->
+	        //The following returns a string of whitespace-separated InstanceIds.
+	        def peizerWhitespaceSeparatedInstanceIds = "aws ec2 describe-instances --filter $rk --query Reservations[].Instances[].InstanceId --region $tk --output text".execute()
+	        def peizerInstanceIds = peizerWhitespaceSeparatedInstanceIds.text.split()
+	        def peizerInstanceIdsAsArrayList = peizerInstanceIds.collect{it}
+	        def intersekt = peizerInstanceIdsAsArrayList.intersect(untaggedInstancesAsArrayList)
+	        def mycmd = "aws ec2 create-tags --dry-run --resources ${intersekt.join(' ')} --tags Key=Project,Value=$rv --region $tk " 
+	        println mycmd
+	    }
+	}
+
+        render "hi"
     }
 }
