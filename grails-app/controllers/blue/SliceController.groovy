@@ -22,6 +22,10 @@ class SliceController {
 
     def servers = {
 
+	def runtypes = ['instances', 'images']
+	//def runtype = 'images'
+	def runtype = 'instances'
+
 	def untaggedInstances = [:]
 
 
@@ -35,10 +39,13 @@ class SliceController {
 	    def allProjectValuesAsNameCRLFValue = []
 	    //The following returns a literal 'Project' and then a value like 'beachfront-int' on the same line.
 
-	    //AMIs: describe-images, Images[].[Tags]
-
-            //INSTANCES: def getAllProjectValuesAsNameCRLFValue = "aws ec2 describe-instances --filter Name=tag-key,Values=Project --query Reservations[].Instances[].[Tags] --region $region --output text".execute()
-            def getAllProjectValuesAsNameCRLFValue = "aws ec2 describe-images --filter Name=tag-key,Values=Project --query Images[].[Tags] --region $region --output text".execute()
+	    def getAllProjectValuesAsNameCRLFValue
+	    if (runtype == 'instances') {
+                getAllProjectValuesAsNameCRLFValue = "aws ec2 describe-instances --filter Name=tag-key,Values=Project --query Reservations[].Instances[].[Tags] --region $region --output text".execute()
+	    }
+	    if (runtype == 'images') {
+                getAllProjectValuesAsNameCRLFValue = "aws ec2 describe-images --filter Name=tag-key,Values=Project --query Images[].[Tags] --region $region --output text".execute()
+	    }
     	    allProjectValuesAsNameCRLFValue = getAllProjectValuesAsNameCRLFValue.text.split()
     	    int allProjectValuesAsNameCRLFValueSize = allProjectValuesAsNameCRLFValue.size()
     
@@ -58,8 +65,13 @@ class SliceController {
 
 	    //AMIs: aws ec2 describe-images --filter Name=owner-id,Values=539674021708 --query Images[].[ImageId] --region us-west-2 --output text
 
-    	    //INSTANCES: def all = "aws ec2 describe-instances --query Reservations[].Instances[].[InstanceId] --region $region --output text".execute()
-    	    def all = "aws ec2 describe-images --filter Name=owner-id,Values=539674021708 --query Images[].[ImageId] --region $region --output text".execute()
+	    def all
+	    if (runtype == 'instances') {
+    	        all = "aws ec2 describe-instances --query Reservations[].Instances[].[InstanceId] --region $region --output text".execute()
+	    }
+	    if (runtype == 'images') {
+    	        all = "aws ec2 describe-images --filter Name=owner-id,Values=539674021708 --query Images[].[ImageId] --region $region --output text".execute()
+	    }
     	    allInstances = all.text.split()
     
     	    //Sort the Project values (e.g. beachfront-dev, piazza-int) just for println readability.
@@ -69,8 +81,13 @@ class SliceController {
 
 		//AMIs: aws ec2 describe-images --filter Name=owner-id,Values=539674021708 Name=tag:Project,Values=piazza-dev --query Images[].[ImageId] --region us-east-1 --output text
 
-    	        //INSTANCES: def tagged = "aws ec2 describe-instances --filter Name=tag:Project,Values=$p --query Reservations[].Instances[].[InstanceId] --region $region --output text".execute()
-    	        def tagged = "aws ec2 describe-images --filter Name=owner-id,Values=539674021708 Name=tag:Project,Values=$p --query Images[].[ImageId] --region $region --output text".execute()
+		def tagged
+	        if (runtype == 'instances') {
+    	            tagged = "aws ec2 describe-instances --filter Name=tag:Project,Values=$p --query Reservations[].Instances[].[InstanceId] --region $region --output text".execute()
+		}
+	        if (runtype == 'images') {
+    	            tagged = "aws ec2 describe-images --filter Name=owner-id,Values=539674021708 Name=tag:Project,Values=$p --query Images[].[ImageId] --region $region --output text".execute()
+		}
     	        allTagged[p] = tagged.text.split()
     	    }
     
@@ -87,8 +104,13 @@ class SliceController {
     	        println "$region|$ilong|untagged"
     	    }
 	}
-	//INSTANCES: println "untaggedInstances:\n$untaggedInstances"
-	println "untaggedImages:\n$untaggedInstances"
+
+	if (runtype == 'instances') {
+	    println "untaggedInstances:\n$untaggedInstances"
+	}
+	if (runtype == 'images') {
+	    println "untaggedImages:\n$untaggedInstances"
+	}
 /*
 	//us-east-1 can take about 60 seconds to generate the untaggedInstances,
 	// so sometimes I generate the list once and then comment out that code
@@ -102,6 +124,8 @@ class SliceController {
         def tagme = [:]
 	tagme['us-west-1'] = [
 	    //RULES FOR EC2 INSTANCES
+	      'Name=instance.group-name,Values=legion-web' : 'xterrain-dev',
+               //Name=instance.group-name,Values=legion-web
 	    //RULES FOR AMI IMAGES
               'Name=name,Values=dual-geoserver'    :'geoserver-dev',
               'Name=name,Values=geoserver*'        :'geoserver-dev',
@@ -168,8 +192,13 @@ class SliceController {
 	    tagme[uk].each { rk, rv ->
 	        //The following returns a string of whitespace-separated InstanceIds.
 
-	        //INSTANCES: def peizerWhitespaceSeparatedInstanceIds = "aws ec2 describe-instances --filter $rk --query Reservations[].Instances[].InstanceId --region $uk --output text".execute()
-	        def peizerWhitespaceSeparatedInstanceIds = "aws ec2 describe-images --filter $rk --query Images[].ImageId --region $uk --output text".execute()
+	        def peizerWhitespaceSeparatedInstanceIds
+	        if (runtype == 'instances') {
+	            peizerWhitespaceSeparatedInstanceIds = "aws ec2 describe-instances --filter $rk --query Reservations[].Instances[].InstanceId --region $uk --output text".execute()
+		}
+	        if (runtype == 'images') {
+	            peizerWhitespaceSeparatedInstanceIds = "aws ec2 describe-images --filter $rk --query Images[].ImageId --region $uk --output text".execute()
+		}
 
 	        def peizerInstanceIds = peizerWhitespaceSeparatedInstanceIds.text.split()
 	        def peizerInstanceIdsAsArrayList = peizerInstanceIds.collect{it}
