@@ -27,8 +27,9 @@ class SliceController {
 
 
 	//def regions = ['us-west-2'] 
-	def regions = ['us-east-1']
-	//def regions = ['us-west-2','us-east-1']
+	//def regions = ['us-east-1']
+	def regions = ['us-west-1']
+	//def regions = ['us-west-2','us-east-1','us-west-1']
 	regions.each { region ->
 
 	    def allProjectValuesAsNameCRLFValue = []
@@ -99,6 +100,15 @@ class SliceController {
 
 
         def tagme = [:]
+	tagme['us-west-1'] = [
+	    //RULES FOR EC2 INSTANCES
+	    //RULES FOR AMI IMAGES
+              'Name=name,Values=dual-geoserver'    :'geoserver-dev',
+              'Name=name,Values=geoserver*'        :'geoserver-dev',
+              'Name=name,Values=gs*'               :'xterrain-dev',
+              'Name=name,Values=legion*'           :'legion-dev',
+              'Name=name,Values=xterrain*'         :'xterrain-dev',
+	]
 	tagme['us-west-2'] = [
 	    //RULES FOR EC2 INSTANCES
 	      //Use the key-pair to infer the project:
