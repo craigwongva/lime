@@ -54,7 +54,7 @@ class SliceController {
     	    allInstances = all.text.split()
     
     	    //Sort the Project values (e.g. beachfront-dev, piazza-int) just for println readability.
-    	    def projects = allProjectValues.sort()
+    	    def projects = allProjectValues.unique().sort()
     	    projects.each { p ->
     	        //The following returns one InstanceID value per line.
     	        def tagged = "aws ec2 describe-instances --filter Name=tag:Project,Values=$p --query Reservations[].Instances[].[InstanceId] --region $region --output text".execute()
