@@ -100,31 +100,56 @@ class SliceController {
 
         def tagme = [:]
 	tagme['us-west-2'] = [
-	    //Use the key-pair to infer the project:
-	    'Name=key-name,Values=adam-chou-key' :'piazza-dev',
-	    'Name=key-name,Values=afroje-initial':'piazza-dev',
-	    'Name=key-name,Values=akey-initial'  :'piazza-dev',
-	    'Name=key-name,Values=ccri-gs'       :'xterrain-dev',
-	    'Name=key-name,Values=craigradiantblueoregon':'piazza-dev',
-	    'Name=key-name,Values=crunchy-admin' :'crunchy-dev',
-	    'Name=key-name,Values=gs-salt*'      :'unknown-dev',
-	    'Name=key-name,Values=peizer'        :'beachfront-dev',
-	    'Name=key-name,Values=smithwinserve' :'piazza-dev',
-	    'Name=key-name,Values=stresstest'    :'unknown-dev',
+	    //RULES FOR EC2 INSTANCES
+	      //Use the key-pair to infer the project:
+	      'Name=key-name,Values=adam-chou-key' :'piazza-dev',
+	      'Name=key-name,Values=afroje-initial':'piazza-dev',
+	      'Name=key-name,Values=akey-initial'  :'piazza-dev',
+	      'Name=key-name,Values=ccri-gs'       :'xterrain-dev',
+	      'Name=key-name,Values=craigradiantblueoregon':'piazza-dev',
+	      'Name=key-name,Values=crunchy-admin' :'crunchy-dev',
+	      'Name=key-name,Values=gs-salt*'      :'unknown-dev',
+	      'Name=key-name,Values=peizer'        :'beachfront-dev',
+	      'Name=key-name,Values=smithwinserve' :'piazza-dev',
+	      'Name=key-name,Values=stresstest'    :'unknown-dev',
+	    //RULES FOR AMI IMAGES
+              'Name=name,Values=adam-do-not-use'   :'piazza-dev',
+              'Name=name,Values=craig*'            :'piazza-dev',
+              'Name=name,Values=pz-prime**'        :'piazza-dev',
+              'Name=name,Values=shb-forensics'     :'piazza-dev',
+              'Name=name,Values=venice-bastion*'   :'piazza-dev',
+              'Name=name,Values=venice-bosh*'      :'piazza-dev',
+              'Name=name,Values=venice-opensextant*' :'piazza-dev',
+              'Name=name,Values=venice-solr*'      :'piazza-dev',
 	]
 	tagme['us-east-1'] = [
-	    //Use the key-pair to infer the project:
-	    'Name=key-name,Values=celery*'       :'eventkit-dev',
-	    'Name=key-name,Values=geowave*'      :'geowave-dev',
-	    'Name=key-name,Values=gsp-vpc'       :'piazza-dev',
-	    'Name=key-name,Values=legion*'       :'legion-dev',
-	    'Name=key-name,Values=mrgeo'         :'mrgeo-dev',
-	    'Name=key-name,Values=packer*'       :'piazza-dev',
-	    //Use the tag Name to infer the project:
-	    'Name=tag:Name,Values=gsp-bastion'   :'piazza-dev',
-	    'Name=tag:Name,Values=idaho*'        :'gbdx-dev',
-	    //for images:
-            'Name=name,Values=craig*'            :'piazza-dev'
+	    //RULES FOR EC2 INSTANCES
+	      //Use the key-pair to infer the project:
+	      'Name=key-name,Values=celery*'       :'eventkit-dev',
+	      'Name=key-name,Values=geowave*'      :'geowave-dev',
+	      'Name=key-name,Values=gsp-vpc'       :'piazza-dev',
+	      'Name=key-name,Values=legion*'       :'legion-dev',
+	      'Name=key-name,Values=mrgeo'         :'mrgeo-dev',
+	      'Name=key-name,Values=packer*'       :'piazza-dev',
+	      //Use the tag Name to infer the project:
+	      'Name=tag:Name,Values=gsp-bastion'   :'piazza-dev',
+	      'Name=tag:Name,Values=idaho*'        :'gbdx-dev',
+	    //RULES FOR AMI IMAGES
+              'Name=name,Values=bastion*'          :'piazza-dev',
+              'Name=name,Values=craigsami*'        :'piazza-dev',
+              'Name=name,Values=crunchy*'          :'piazza-dev',
+              'Name=name,Values=gbdx*'             :'gbdx-dev',
+              'Name=name,Values=geoserver*'        :'geoserver-dev',
+              'Name=name,Values=geoshape*'         :'geoshape-dev',
+              'Name=name,Values=gs*'               :'xterrain-dev',
+              'Name=name,Values=jenkins*'          :'piazza-dev',
+              'Name=name,Values=kafka*'            :'piazza-dev',
+              'Name=name,Values=ldap*'             :'piazza-dev',
+              'Name=name,Values=legion*'           :'legion-dev',
+              'Name=name,Values=mrgeo*'            :'mrgeo-dev',
+              'Name=name,Values=packer*'           :'packer-dev',
+              'Name=name,Values=pz-base*'          :'piazza-dev',
+              'Name=name,Values=pz-bastion*'       :'piazza-dev',
 	]
 
 	untaggedInstances.each { uk, uv ->
@@ -139,8 +164,10 @@ class SliceController {
 	        def peizerInstanceIds = peizerWhitespaceSeparatedInstanceIds.text.split()
 	        def peizerInstanceIdsAsArrayList = peizerInstanceIds.collect{it}
 	        def intersekt = peizerInstanceIdsAsArrayList.intersect(untaggedInstancesAsArrayList)
-	        def mycmd = "aws ec2 create-tags --dry-run --resources ${intersekt.join(' ')} --tags Key=Project,Value=$rv --region $uk " 
-	        println mycmd
+		if (intersekt.size() > 0) {
+	            def mycmd = "aws ec2 create-tags --dry-run --resources ${intersekt.join(' ')} --tags Key=Project,Value=$rv --region $uk " 
+	            println mycmd
+		}
 	    }
 	}
 
