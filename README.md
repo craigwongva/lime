@@ -27,3 +27,14 @@ craig/judy
 
 Actually that first line shows itself surrounded by double quotes, but copying it and pasting it here doesn't show it.
 
+--
+The Grails code also tags instances and images.
+
+Use case:
+This code doesn't actually DO anything, i.e. it's read-only.
+Use this code to generate create-tags commands, then you the human run those commands.
+
+1. Create stack using https://s3.amazonaws.com/venicegeo-devops-dev-lime-project/cf-jenkins.json
+2. It takes at least ten minutes. It does a lengthy Jenkins install before the Grails install.
+3. Sign onto the instance.
+4. cd /home/ec2-user/lime/
