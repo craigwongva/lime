@@ -87,6 +87,7 @@ class SliceController {
 
         def tagme = [:]
 	tagme['us-west-2'] = [
+	    //These rules use the key-pair to infer the project:
 	    'Name=key-name,Values=adam-chou-key' :'piazza-dev',
 	    'Name=key-name,Values=afroje-initial':'piazza-dev',
 	    'Name=key-name,Values=akey-initial'  :'piazza-dev',
@@ -96,15 +97,19 @@ class SliceController {
 	    'Name=key-name,Values=gs-salt*'      :'unknown-dev',
 	    'Name=key-name,Values=peizer'        :'beachfront-dev',
 	    'Name=key-name,Values=smithwinserve' :'piazza-dev',
-	    'Name=key-name,Values=stresstest'    :'unknown-dev'
+	    'Name=key-name,Values=stresstest'    :'unknown-dev',
 	]
 	tagme['us-east-1'] = [
+	    //These rules use the key-pair to infer the project:
 	    'Name=key-name,Values=celery*'       :'eventkit-dev',
 	    'Name=key-name,Values=geowave*'      :'geowave-dev',
 	    'Name=key-name,Values=gsp-vpc'       :'piazza-dev',
 	    'Name=key-name,Values=legion*'       :'legion-dev',
 	    'Name=key-name,Values=mrgeo'         :'mrgeo-dev',
-	    'Name=key-name,Values=packer*'       :'piazza-dev'
+	    'Name=key-name,Values=packer*'       :'piazza-dev',
+	    //These rules use the tag Name to infer the project:
+	    'Name=tag:Name,Values=gsp-bastion'   :'piazza-dev',
+	    'Name=tag:Name,Values=idaho*'        :'gbdx-dev',
 	]
 
 	untaggedInstances.each { uk, uv ->
