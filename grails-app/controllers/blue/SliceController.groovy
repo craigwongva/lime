@@ -13,7 +13,7 @@ class SliceController {
 
         def mickey = [
            "curl",
-           "http://www.clarabridge.com"].execute().text
+           "http://internal-gsn-elast-LoadBala-1VM92CUEJ7R8D-205245139.us-east-1.elb.amazonaws.com:9200"].execute().text
 
         render "index\n$mickey\n" + vcs
     }
