@@ -10,7 +10,7 @@ class SliceController {
 	//VCAP_SERVICES looks like this:
 	//[{"user-provided":[{ "credentials": { "password": "judy", "username": "craig" }, "syslog_drain_url": "", "volume_mounts": [ ], "label": "user-provided", "name": "myups", "tags": [ ] }]}]
 	//This is a string:
-        render "index"
+        render "index" + vcs
     }
 
     def coriander = {
