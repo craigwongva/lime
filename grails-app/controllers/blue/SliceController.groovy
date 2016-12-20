@@ -26,6 +26,7 @@ class SliceController {
 	//{password=judy, username=craig}
 	[credjson: credentials, 
          credslashstring: credentials.username + '/' + credentials.password ]
+	render "$credentials...${credentials.username}/${credentials.password}"
     }
 
     def servers = {
