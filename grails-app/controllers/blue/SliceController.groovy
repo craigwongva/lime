@@ -4,6 +4,10 @@ import groovy.json.*
 
 class SliceController {
 
+    def index = {
+        render "index"
+    }
+
     def coriander = {
 	render 'coriander'
     }
