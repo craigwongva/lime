@@ -5,6 +5,7 @@ import groovy.json.*
 class SliceController {
 
     def random = {
+	println "coriander"
 	def env = System.getenv()
 	def vcs = env.grep{it.key=='VCAP_SERVICES'} 
 	//VCAP_SERVICES looks like this:
