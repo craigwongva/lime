@@ -5,6 +5,11 @@ import groovy.json.*
 class SliceController {
 
     def index = {
+	def env = System.getenv()
+	def vcs = env.grep{it.key=='VCAP_SERVICES'} 
+	//VCAP_SERVICES looks like this:
+	//[{"user-provided":[{ "credentials": { "password": "judy", "username": "craig" }, "syslog_drain_url": "", "volume_mounts": [ ], "label": "user-provided", "name": "myups", "tags": [ ] }]}]
+	//This is a string:
         render "index"
     }
 
