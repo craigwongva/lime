@@ -60,15 +60,16 @@ class SliceController {
 
 	    def getAllProjectValuesAsNameCRLFValue
 	    if (runtype == 'instances') {
-                getAllProjectValuesAsNameCRLFValue = "aws ec2 describe-instances --filter Name=tag-key,Values=Project --query Reservations[].Instances[].[Tags] --region $region --output text --max-items 20000 ".execute()
+                getAllProjectValuesAsNameCRLFValue = "aws ec2 describe-instances --filter Name=tag-key,Values=Project --query Reservations[].Instances[].[Tags] --region $region --output text ".execute()
 		//--instance-ids i-0ac00b1664b15426a i-c35133f2
+		//max-items 20001
 	    }
 	    if (runtype == 'images') {
                 getAllProjectValuesAsNameCRLFValue = "aws ec2 describe-images --filter Name=tag-key,Values=Project --query Images[].[Tags] --region $region --output text".execute()
 	    }
-    	    allProjectValuesAsNameCRLFValue = getAllProjectValuesAsNameCRLFValue.text.split()
-	    println "69: $allProjectValuesAsNameCRLFValue"
-	    render allProjectValuesAsNameCRLFValue
+    	    allProjectValuesAsNameCRLFValue = getAllProjectValuesAsNameCRLFValue.text.split('\n')
+	    //println "69: $allProjectValuesAsNameCRLFValue"
+	    //render allProjectValuesAsNameCRLFValue
 /*
 69: [aws:cloudformation:stack-id, arn:aws:cloudformation:us-east-1:539674021708:stack/celery2/dcadd920-79d3-11e6-ab8d-500c5240582a, aws:cloudformation:stack-name, celery2, Project, eventkit-dev, aws:cloudformation:logical-id, Server, Project, geowave-dev]
 */
@@ -78,12 +79,30 @@ class SliceController {
 	    def myfile = new File('deleteme333')
     
     	    def allProjectValues = []
-    	    for (int i=0; i<allProjectValuesAsNameCRLFValueSize; i += 2) {
-		myfile << "$i,${allProjectValuesAsNameCRLFValue[i]}\n"
-		myfile << "${i+1},${allProjectValuesAsNameCRLFValue[i+1]}\n"
-    	        if (allProjectValuesAsNameCRLFValue[i] == 'Project') {
-    		    allProjectValues.add(allProjectValuesAsNameCRLFValue[i+1])
+    	    for (int i=0; i<allProjectValuesAsNameCRLFValueSize; i++) {
+		myfile << allProjectValuesAsNameCRLFValue[i] + '\n'
+		def indexOfSpace = allProjectValuesAsNameCRLFValue[i].indexOf('\t')
+		if (allProjectValuesAsNameCRLFValue[i] =~ /\t$/) {
+		 //because sometimes a tag has a null value
+		 println "I reject ${allProjectValuesAsNameCRLFValue[i]}"
+		}
+		else {
+                String beforeSpace = 
+                 allProjectValuesAsNameCRLFValue[i][0..indexOfSpace-1]
+                String afterSpace = 
+                 allProjectValuesAsNameCRLFValue[i][indexOfSpace+1..-1]
+                myfile << "${2*i},$beforeSpace\n"
+		myfile << "${2*i+1},$afterSpace\n"
+		//myfile << "$i,${allProjectValuesAsNameCRLFValue[i]}\n"
+		//myfile << "${i+1},${allProjectValuesAsNameCRLFValue[i+1]}\n"
+		
+    	        if (beforeSpace == 'Project') {
+    		    allProjectValues.add(afterSpace)
     	        }
+    	        //if (allProjectValuesAsNameCRLFValue[i] == 'Project') {
+    		//    allProjectValues.add(allProjectValuesAsNameCRLFValue[i+1])
+    	        //}
+		}
     	    }
     
 	    println "83: $allProjectValues"
@@ -199,8 +218,11 @@ class SliceController {
 	    //RULES FOR EC2 INSTANCES
 	      //Use the key-pair to infer the project:
 	      'Name=key-name,Values=celery*'       :'eventkit-dev',
+	      'Name=key-name,Values=dcos-adam'     :'gbdx-dev',
 	      'Name=key-name,Values=geowave*'      :'geowave-dev',
 	      'Name=key-name,Values=gsp-vpc'       :'piazza-dev',
+	      'Name=key-name,Values=gsn-vpc'       :'piazza-dev',
+	      'Name=key-name,Values=kraig*'        :'piazza-dev',
 	      'Name=key-name,Values=legion*'       :'legion-dev',
 	      'Name=key-name,Values=mrgeo'         :'mrgeo-dev',
 	      'Name=key-name,Values=packer*'       :'piazza-dev',
