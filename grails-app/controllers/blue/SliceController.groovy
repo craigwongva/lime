@@ -50,8 +50,8 @@ class SliceController {
 
 
 	//def regions = ['us-west-2'] 
-	//def regions = ['us-east-1']
-	def regions = ['us-west-1']
+	def regions = ['us-east-1']
+	//def regions = ['us-west-1']
 	//def regions = ['us-west-2','us-east-1','us-west-1']
 	regions.each { region ->
 
@@ -60,21 +60,36 @@ class SliceController {
 
 	    def getAllProjectValuesAsNameCRLFValue
 	    if (runtype == 'instances') {
-                getAllProjectValuesAsNameCRLFValue = "aws ec2 describe-instances --filter Name=tag-key,Values=Project --query Reservations[].Instances[].[Tags] --region $region --output text".execute()
+                getAllProjectValuesAsNameCRLFValue = "aws ec2 describe-instances --filter Name=tag-key,Values=Project --query Reservations[].Instances[].[Tags] --region $region --output text --max-items 20000 ".execute()
+		//--instance-ids i-0ac00b1664b15426a i-c35133f2
 	    }
 	    if (runtype == 'images') {
                 getAllProjectValuesAsNameCRLFValue = "aws ec2 describe-images --filter Name=tag-key,Values=Project --query Images[].[Tags] --region $region --output text".execute()
 	    }
     	    allProjectValuesAsNameCRLFValue = getAllProjectValuesAsNameCRLFValue.text.split()
+	    println "69: $allProjectValuesAsNameCRLFValue"
+	    render allProjectValuesAsNameCRLFValue
+/*
+69: [aws:cloudformation:stack-id, arn:aws:cloudformation:us-east-1:539674021708:stack/celery2/dcadd920-79d3-11e6-ab8d-500c5240582a, aws:cloudformation:stack-name, celery2, Project, eventkit-dev, aws:cloudformation:logical-id, Server, Project, geowave-dev]
+*/
+
     	    int allProjectValuesAsNameCRLFValueSize = allProjectValuesAsNameCRLFValue.size()
+	    println "77: $allProjectValuesAsNameCRLFValueSize"
+	    def myfile = new File('deleteme333')
     
     	    def allProjectValues = []
     	    for (int i=0; i<allProjectValuesAsNameCRLFValueSize; i += 2) {
+		myfile << "$i,${allProjectValuesAsNameCRLFValue[i]}\n"
+		myfile << "${i+1},${allProjectValuesAsNameCRLFValue[i+1]}\n"
     	        if (allProjectValuesAsNameCRLFValue[i] == 'Project') {
     		    allProjectValues.add(allProjectValuesAsNameCRLFValue[i+1])
     	        }
     	    }
     
+	    println "83: $allProjectValues"
+/*
+83: [eventkit-dev, geowave-dev]
+*/
     	    //Use a list of allInstances to determine which instancs are untagged,
     	    // because the CLI doesn't seem to allow the same wildcards that the EC2 Dashboard GUI filter window allows
     	    // e.g. "Not tagged" in "tag:Project : Not tagged"
@@ -92,7 +107,11 @@ class SliceController {
     	        all = "aws ec2 describe-images --filter Name=owner-id,Values=539674021708 --query Images[].[ImageId] --region $region --output text".execute()
 	    }
     	    allInstances = all.text.split()
-    
+
+	    println "104 ${allInstances.size()}"
+/*
+104 [i-7b2fa3e2, i-0d9211114c0ad285f, i-09751d38, i-0edfe0a195902c776, i-7309f3e2, i-05c53b51862377501, i-00ae6a91, i-cdb2a753,
+*/    
     	    //Sort the Project values (e.g. beachfront-dev, piazza-int) just for println readability.
     	    def projects = allProjectValues.unique().sort()
     	    projects.each { p ->
@@ -108,6 +127,7 @@ class SliceController {
     	            tagged = "aws ec2 describe-images --filter Name=owner-id,Values=539674021708 Name=tag:Project,Values=$p --query Images[].[ImageId] --region $region --output text".execute()
 		}
     	        allTagged[p] = tagged.text.split()
+		println "124: allTagged[$p] is ${allTagged[p]}"
     	    }
     
     	    untaggedInstances[region] = allInstances
