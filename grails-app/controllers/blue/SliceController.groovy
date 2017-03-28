@@ -50,9 +50,9 @@ class SliceController {
 
 
 	//def regions = ['us-west-2'] 
-	def regions = ['us-east-1']
+	//def regions = ['us-east-1']
 	//def regions = ['us-west-1']
-	//def regions = ['us-west-2','us-east-1','us-west-1']
+	def regions = ['us-west-2','us-east-1','us-west-1']
 	regions.each { region ->
 
 	    def allProjectValuesAsNameCRLFValue = []
