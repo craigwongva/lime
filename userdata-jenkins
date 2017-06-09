@@ -1,5 +1,17 @@
 export TMP=/tmp/jenkins
-wget http://pkg.jenkins-ci.org/redhat/jenkins-1.653-1.1.noarch.rpm &> $TMP-1000
+
+####
+## Install Maven
+####
+cd /home/ec2-user                                           &> $TMP-0410 2>&1
+wget http://mirror.olnevhost.net/pub/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz &> $TMP-2415 2>&1
+tar xvf apache-maven-3.0.5-bin.tar.gz                       &> $TMP-0420 2>&1
+sudo mv apache-maven-3.0.5 /usr/local/apache-maven          &> $TMP-0425 2>&1
+export M2_HOME=/usr/local/apache-maven                      &> $TMP-0430 2>&1
+export M2=$M2_HOME/bin                                      &> $TMP-0435 2>&1
+export PATH=$M2:$PATH                                       &> $TMP-0440 2>&1
+
+wget https://pkg.jenkins.io/redhat/jenkins-1.653-1.1.noarch.rpm &> $TMP-1000
 sudo rpm -ivh jenkins-1.653-1.1.noarch.rpm                         &> $TMP-1100
 sudo yum install jenkins-1.653-1.1                                 &> $TMP-1200
 sudo service jenkins start                                         &> $TMP-1300
@@ -11,8 +23,10 @@ java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin workflow-aggre
 java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin groovy               &> $TMP-2000
 java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin credentials-binding  &> $TMP-2100
 java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin pipeline-stage-view  &> $TMP-2200
-#-->manually add a Maven "M1"
-#-->manually add a Groovy "G1"
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin deploy  &> $TMP-2300
+
+java -jar jenkins-cli.jar -s http://localhost:8080/ groovy maven3.groovy  &> $TMP-2310
+
 sudo service jenkins stop                                          &> $TMP-2400
 sudo service jenkins start                                         &> $TMP-2500
 sleep 3m                                                           &> $TMP-2600
@@ -34,6 +48,12 @@ sudo cp ./cf /cf                                                  &> $TMP-3400
 ####
 sudo yum install java-1.8.0-openjdk-devel -y                      &> $TMP-4000
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk                  &> $TMP-4100
+
+####
+## for Maven 3.0.5
+## (inside Jenkins Configuration, set manually JAVA_HOME to /usr/lib/jvm/java-1.7.0)
+####
+sudo yum install java-1.7.0-openjdk-devel -y                      &> $TMP-4200
 
 ####
 ## for Jenkins' SES email
