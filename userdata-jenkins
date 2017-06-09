@@ -25,7 +25,7 @@ java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin credentials-bi
 java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin pipeline-stage-view  &> $TMP-2200
 java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin deploy  &> $TMP-2300
 
-java -jar jenkins-cli.jar -s http://localhost:8080/ groovy maven3.groovy  &> $TMP-2310
+java -jar jenkins-cli.jar -s http://localhost:8080/ groovy lime/maven3.groovy  &> $TMP-2310
 
 sudo service jenkins stop                                          &> $TMP-2400
 sudo service jenkins start                                         &> $TMP-2500
