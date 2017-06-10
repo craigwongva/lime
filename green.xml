@@ -42,8 +42,8 @@
   <adapters>
    <hudson.plugins.deploy.tomcat.Tomcat7xAdapter>
     <userName>admin</userName>
-    <passwordScrambled>Y2F0</passwordScrambled>
-    <url>http://52.37.188.44:8080</url>
+    <passwordScrambled>TOMCATMGRPASSWORD</passwordScrambled>
+    <url>http://TOMCATURL:8080</url>
    </hudson.plugins.deploy.tomcat.Tomcat7xAdapter>
   </adapters>
   <contextPath>green</contextPath>
