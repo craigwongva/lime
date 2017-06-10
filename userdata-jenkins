@@ -4,7 +4,7 @@ export TMP=/tmp/jenkins
 ## Install Maven
 ####
 cd /home/ec2-user                                           &> $TMP-0410 2>&1
-wget http://mirror.olnevhost.net/pub/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz &> $TMP-2415 2>&1
+wget http://mirror.olnevhost.net/pub/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz &> $TMP-0415 2>&1
 tar xvf apache-maven-3.0.5-bin.tar.gz                       &> $TMP-0420 2>&1
 sudo mv apache-maven-3.0.5 /usr/local/apache-maven          &> $TMP-0425 2>&1
 export M2_HOME=/usr/local/apache-maven                      &> $TMP-0430 2>&1
@@ -30,11 +30,11 @@ java -jar jenkins-cli.jar -s http://localhost:8080/ groovy lime/maven3.groovy  &
 
 sudo service jenkins stop                                          &> $TMP-2400
 sudo service jenkins start                                         &> $TMP-2500
-sleep 3m                                                           &> $TMP-2600
-java -jar jenkins-cli.jar -s http://localhost:8080 create-job mypipe < lime/mypipe.xml      &> $TMP-2950
-sed -i "s/TOMCATMGRPASSWORD/$1" lime/green.xml
-sed -i "s/TOMCATURL/$2" lime/green.xml
-java -jar jenkins-cli.jar -s http://localhost:8080 create-job green < lime/green.xml      &> $TMP-2990
+sleep 5m                                                           &> $TMP-2600
+#this seems broken: java -jar jenkins-cli.jar -s http://localhost:8080 create-job mypipe < lime/mypipe.xml      &> $TMP-2950
+sed -i "s/TOMCATMGRPASSWORD/$1" lime/green.xml &> $TMP-2604 2>&1
+sed -i "s/TOMCATURL/$2" lime/green.xml         &> $TMP-2606 2>&1
+java -jar jenkins-cli.jar -s http://localhost:8080 create-job green < lime/green.xml      &> $TMP-2990 2>&1
 
 ####
 ## Install PCF CLI
