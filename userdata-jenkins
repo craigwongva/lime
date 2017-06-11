@@ -11,9 +11,12 @@ export M2_HOME=/usr/local/apache-maven                      &> $TMP-0430 2>&1
 export M2=$M2_HOME/bin                                      &> $TMP-0435 2>&1
 export PATH=$M2:$PATH                                       &> $TMP-0440 2>&1
 
-wget https://pkg.jenkins.io/redhat/jenkins-1.653-1.1.noarch.rpm &> $TMP-1000
-sudo rpm -ivh jenkins-1.653-1.1.noarch.rpm                         &> $TMP-1100
-sudo yum install jenkins-1.653-1.1                                 &> $TMP-1200
+wget http://pkg.jenkins.io/redhat/jenkins-2.33-1.1.noarch.rpm &> $TMP-1000
+#wget https://pkg.jenkins.io/redhat/jenkins-1.653-1.1.noarch.rpm &> $TMP-1000
+sudo rpm -ivh jenkins-2.33-1.1.noarch.rpm                         &> $TMP-1100
+#sudo rpm -ivh jenkins-1.653-1.1.noarch.rpm                         &> $TMP-1100
+sudo yum install jenkins-2.33-1.1                                 &> $TMP-1200
+#sudo yum install jenkins-1.653-1.1                                 &> $TMP-1200
 sudo service jenkins start                                         &> $TMP-1300
 sleep 5m                                                           &> $TMP-1350
 wget localhost:8080/jnlpJars/jenkins-cli.jar                       &> $TMP-1400
