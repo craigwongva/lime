@@ -14,7 +14,7 @@ sed -i '1,$s/wrapper.java.command=.*$/wrapper.java.command=\/usr\/lib\/jvm\/java
 sed -i '1,$s/.$//' /home/ec2-user/sonarqube-5.6.2/conf/wrapper.conf #remove ^M
 
 cd /home/ec2-user/lime
-cp sonar-groovy-plugin-1.5.jar /home/ec2-user/sonarqube-5.6.2/extensions/
+cp sonar-groovy-plugin-1.5.jar /home/ec2-user/sonarqube-5.6.2/extensions/plugins
 
 cd /home/ec2-user/sonarqube-5.6.2/bin/linux-x86-64             &> $TMP-1500
 ./sonar.sh start                                               &> $TMP-1600
