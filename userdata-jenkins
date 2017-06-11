@@ -32,8 +32,8 @@ sudo service jenkins stop                                          &> $TMP-2400
 sudo service jenkins start                                         &> $TMP-2500
 sleep 5m                                                           &> $TMP-2600
 #this seems broken: java -jar jenkins-cli.jar -s http://localhost:8080 create-job mypipe < lime/mypipe.xml      &> $TMP-2950
-sed -i "s/TOMCATMGRPASSWORD/$1" lime/green.xml &> $TMP-2604 2>&1
-sed -i "s/TOMCATURL/$2" lime/green.xml         &> $TMP-2606 2>&1
+sed -i "s/TOMCATMGRPASSWORD/$1/" lime/green.xml &> $TMP-2604 2>&1
+sed -i "s/TOMCATURL/$2/" lime/green.xml         &> $TMP-2606 2>&1
 java -jar jenkins-cli.jar -s http://localhost:8080 create-job green < lime/green.xml      &> $TMP-2990 2>&1
 
 ####
