@@ -1,5 +1,10 @@
-#!/usr/bin/env groovy
+node {
+    stage 'git'
+    git 'https://github.com/craigwongva/green.git'
+}
+
 /*
+#!/usr/bin/env groovy
 def sendEmailViaSES(successOrFailure) {
     println successOrFailure
     def x5 = "python /var/lib/jenkins/jobs/mypipe/workspace/ses.py mypipe $successOrFailure".execute()
