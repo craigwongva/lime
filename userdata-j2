@@ -9,6 +9,9 @@ sudo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
 sudo yum install jenkins -y
 sudo yum install git -y
 sudo service jenkins stop
+#The local copy of 'jenkins' is a copy of
+# /etc/init.d, modified to ensure one specific
+# candidate jdk.
 sudo cp lime/jenkins /etc/init.d/
 sudo service jenkins start
 #sudo cat /var/lib/jenkins/secrets/initialAdminPassword
