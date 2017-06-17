@@ -1,0 +1,15 @@
+#First do lime/userdata-jenkins
+sudo service jenkins stop
+sudo yum remove jenkins-1.653-1.1
+#e.g. we assume Java 1.8 is installed earlier
+export JAVA_HOME=/usr/java/jdk1.8.0_101
+cd ~
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+sudo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+sudo yum install jenkins -y
+sudo yum install git -y
+sudo service jenkins stop
+sudo cp lime/jenkins /etc/init.d/
+sudo service jenkins start
+#sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
