@@ -48,8 +48,8 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
   <adapters>
    <hudson.plugins.deploy.tomcat.Tomcat7xAdapter>
     <userName>admin</userName>
-    <passwordScrambled>M2p1c3Rhc3RoRSM=</passwordScrambled>
-    <url>http://35.167.225.77:8080</url>
+    <passwordScrambled>TOMCATMGRPASSWORD</passwordScrambled>
+    <url>http://TOMCATURL:8080</url>
    </hudson.plugins.deploy.tomcat.Tomcat7xAdapter>
   </adapters>
   <contextPath>green</contextPath>
