@@ -1,0 +1,8 @@
+sudo yum install fontconfig freetype freetype-devel fontconfig-devel libstdc++ -y
+wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2
+sudo mkdir -p /opt/phantomjs
+sudo tar -xjvf phantomjs-1.9.8-linux-x86_64.tar.bz2 --strip-components 1 -C /opt/phantomjs/
+sudo ln -s /opt/phantomjs/bin/phantomjs /usr/bin/phantomjs
+#vi sendhttps.js
+#phantomjs sendhttp.js
+
