@@ -1,3 +1,0 @@
-#!/bin/bash
-sed -i "s/CHANGEME/$1/" invoke.js
-phantomjs invoke.js &
