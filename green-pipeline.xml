@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<flow-definition plugin="workflow-job@2.13">
+
+<actions/>
+
+<description/>
+
+<keepDependencies>false</keepDependencies>
+
+
+<properties>
+
+
+<com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.27.0">
+
+<projectUrl>https://github.com/craigwongva/green/</projectUrl>
+
+<displayName/>
+
+</com.coravy.hudson.plugins.github.GithubProjectProperty>
+
+
+<org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+
+<triggers/>
+
+</org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+
+</properties>
+
+
+<definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.36">
+
+<script>node { def mvn = tool 'M3.0.5' def craigt42_InstanceID stage('checkout') { checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/craigwongva/green']]]) } stage('build') { sh """/usr/local/apache-maven/bin/mvn clean -DskipTests install""" } stage('deploy') { sh "whoami" sh "pwd" sh """scp -i /home/jenkins/craigradiantblueoregon.pem /var/lib/jenkins/.m2/repository/com/demo/green/1.0-SNAPSHOT/green-1.0-SNAPSHOT.war ec2-user@35.160.37.166:/usr/share/tomcat7/webapps/green.war""" } } </script>
+
+<sandbox>false</sandbox>
+
+</definition>
+
+<triggers/>
+
+<disabled>false</disabled>
+
+</flow-definition>
