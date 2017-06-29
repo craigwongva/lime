@@ -1,18 +1,20 @@
+export TMP=/tmp/jenkins2
+
 #First do lime/userdata-jenkins
-sudo service jenkins stop
-sudo yum remove jenkins-1.653-1.1
+sudo service jenkins stop                          &> $TMP-1000 2>&1
+sudo yum remove jenkins-1.653-1.1                  &> $TMP-1100 2>&1
 #e.g. we assume Java 1.8 is installed earlier
-export JAVA_HOME=/usr/java/jdk1.8.0_101
-cd ~
-sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
-sudo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
-sudo yum install jenkins -y
-sudo yum install git -y
+export JAVA_HOME=/usr/java/jdk1.8.0_101            &> $TMP-1200 2>&1
+cd ~                                               &> $TMP-1300 2>&1
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo &> $TMP-1400 2>&1
+sudo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key &> $TMP-1500 2>&1
+sudo yum install jenkins -y                        &> $TMP-1600 2>&1
+sudo yum install git -y                            &> $TMP-1700 2>&1
 sudo service jenkins stop
 #The local copy of 'jenkins' is a copy of
 # /etc/init.d, modified to ensure one specific
 # candidate jdk.
-sudo cp lime/jenkins /etc/init.d/
-sudo service jenkins start
+sudo cp lime/jenkins /etc/init.d/                  &> $TMP-1800 2>&1
+sudo service jenkins start                         &> $TMP-1900 2>&1
 #sudo cat /var/lib/jenkins/secrets/initialAdminPassword
-
+java -jar jenkins-cli.jar -s http://localhost:8080 create-job green-pipeline < lime/green-pipeline.xml      &> $TMP-2000 2>&1
