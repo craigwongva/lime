@@ -61,13 +61,13 @@ sudo yum install java-1.7.0-openjdk-devel -y                      &> $TMP-4200
 ####
 ## for Jenkins' SES email
 ####
-sudo pip install boto3
+sudo pip install boto3                                            &> $TMP-5000
 
 ####
 ## Enable ssh deploy to Tomcat.
 ####
-cd /home/ec2-user/lime
-touch craigradiantblueoregon.pem
-sudo chown jenkins:jenkins craigradiantblueoregon.pem
-mkdir -p /home/jenkins
-mv craigradiantblueoregon.pem /home/jenkins/
+cd /home/ec2-user/lime                                            &> $TMP-5100
+touch craigradiantblueoregon.pem                                  &> $TMP-5200
+sudo chown jenkins:jenkins craigradiantblueoregon.pem             &> $TMP-5300
+sudo mkdir -p /home/jenkins                                       &> $TMP-5400
+sudo mv craigradiantblueoregon.pem /home/jenkins/                 &> $TMP-5500
