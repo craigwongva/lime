@@ -40,34 +40,35 @@ java -jar jenkins-cli.jar -s http://localhost:8080 create-job green < lime/green
 ## Install PCF CLI
 ####
 
-wget "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.21.1&source=github-rel" -O foo &> $TMP-3000
-tar zxvf foo #creates the executable “cf”                         &> $TMP-3100
-rm foo                                                            &> $TMP-3200
-chmod 755 cf                                                      &> $TMP-3300
-sudo cp ./cf /cf                                                  &> $TMP-3400
+wget "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.21.1&source=github-rel" -O foo &> $TMP-3000 2>&1
+tar zxvf foo #creates the executable “cf”                         &> $TMP-3100 2>&1
+rm foo                                                            &> $TMP-3200 2>&1
+chmod 755 cf                                                      &> $TMP-3300 2>&1
+sudo cp ./cf /cf                                                  &> $TMP-3400 2>&1
 
 ####
 ## for Jenkins' Maven
 ####
-sudo yum install java-1.8.0-openjdk-devel -y                      &> $TMP-4000
-export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk                  &> $TMP-4100
+sudo yum install java-1.8.0-openjdk-devel -y                      &> $TMP-4000 2>&1
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk                  &> $TMP-4100 2>&1
 
 ####
 ## for Maven 3.0.5
 ## (inside Jenkins Configuration, set manually JAVA_HOME to /usr/lib/jvm/java-1.7.0)
 ####
-sudo yum install java-1.7.0-openjdk-devel -y                      &> $TMP-4200
+sudo yum install java-1.7.0-openjdk-devel -y                      &> $TMP-4200 2>&1
 
 ####
 ## for Jenkins' SES email
 ####
-sudo pip install boto3                                            &> $TMP-5000
+sudo pip install boto3                                            &> $TMP-5000 2>&1
 
 ####
 ## Enable ssh deploy to Tomcat.
 ####
-cd /home/ec2-user/lime                                            &> $TMP-5100
-touch craigradiantblueoregon.pem                                  &> $TMP-5200
-sudo chown jenkins:jenkins craigradiantblueoregon.pem             &> $TMP-5300
-sudo mkdir -p /home/jenkins                                       &> $TMP-5400
-sudo mv craigradiantblueoregon.pem /home/jenkins/                 &> $TMP-5500
+cd /home/ec2-user/lime                                            &> $TMP-5100 2>&1
+touch craigradiantblueoregon.pem                                  &> $TMP-5200 2>&1
+sudo chown jenkins:jenkins craigradiantblueoregon.pem             &> $TMP-5300 2>&1
+whoami                                                            &> $TMP-5350 2>&1
+sudo mkdir -p /home/jenkins                                       &> $TMP-5400 2>&1
+sudo mv craigradiantblueoregon.pem /home/jenkins/                 &> $TMP-5500 2>&1
