@@ -68,6 +68,7 @@ sudo pip install boto3                                            &> $TMP-5000 2
 ####
 cd /home/ec2-user/lime                                            &> $TMP-5100 2>&1
 touch craigradiantblueoregon.pem                                  &> $TMP-5200 2>&1
+chmod 600 craigradiantblueoregon.pem                              &> $TMP-5210 2>&1
 sudo chown jenkins:jenkins craigradiantblueoregon.pem             &> $TMP-5300 2>&1
 whoami                                                            &> $TMP-5350 2>&1
 sudo mkdir -p /home/jenkins                                       &> $TMP-5400 2>&1
