@@ -2,7 +2,7 @@ export TMP=/tmp/jenkins2
 
 #First do lime/userdata-jenkins
 sudo service jenkins stop                          &> $TMP-1000 2>&1
-sudo yum remove jenkins-1.653-1.1                  &> $TMP-1100 2>&1
+sudo yum remove jenkins-1.653-1.1 -y               &> $TMP-1100 2>&1
 #e.g. we assume Java 1.8 is installed earlier
 export JAVA_HOME=/usr/java/jdk1.8.0_101            &> $TMP-1200 2>&1
 cd ~                                               &> $TMP-1300 2>&1
@@ -18,4 +18,5 @@ sudo cp lime/jenkins /etc/init.d/                  &> $TMP-1800 2>&1
 sudo service jenkins start                         &> $TMP-1900 2>&1
 #sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 sleep 2m                                           &> $TMP-1950 2>&1
+aws ec2 authorize-security-group-ingress --region us-west-2 --group-name GreenDots --protocol tcp --port 22 --cidr `curl 169.254.169.254/latest/meta-data/public-ipv4`/32 &> $TMP-1970 2>&1
 java -jar jenkins-cli.jar -s http://localhost:8080 create-job green-pipeline < lime/green-pipeline.xml      &> $TMP-2000 2>&1
