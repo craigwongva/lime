@@ -43,7 +43,7 @@ node {
     def war = "blue-0.1.war"
     //def cmd2 = "$cfcmd push $appname -p $jobsdir/$targetdir/$war"
     //def cmd2 = "$cfcmd push -f /var/lib/jenkins/workspace/mypipe-for-cf-push-via-conda/manifest.yml"
-    def cmd2 = "$cfcmd push -f /var/lib/jenkins/workspace/mypipe-for-cf-push-via-conda/manifest.yml -p /var/lib/jenkins/workspace/mypipe-for-cf-push-via-conda"    
+    def cmd2 = "$cfcmd push -f /var/lib/jenkins/workspace/python-cf-examples/manifest.yml -p /var/lib/jenkins/workspace/python-cf-examples"    
     println cmd2
     def cmdtext2 = cmd2.execute().text
     println "@3"
