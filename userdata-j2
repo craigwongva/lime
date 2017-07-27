@@ -28,3 +28,4 @@ aws ec2 authorize-security-group-ingress --region us-west-2 --group-name GreenDo
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0_openjdk   &> $TMP-1200 2>&1
 java -jar jenkins-cli.jar -s http://localhost:8080 create-job green-pipeline < lime/green-pipeline.xml      &> $TMP-2000 2>&1
 java -jar jenkins-cli.jar -s http://localhost:8080 create-job python-cf-examples < lime/python-cf-examples.xml      &> $TMP-2100 2>&1
+java -jar jenkins-cli.jar -s http://localhost:8080 create-job python-cf-examples2 < lime/python-cf-examples2.xml      &> $TMP-2200 2>&1
