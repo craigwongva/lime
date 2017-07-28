@@ -38,3 +38,26 @@ Use this code to generate create-tags commands, then you the human run those com
 2. It takes at least ten minutes. It does a lengthy Jenkins install before the Grails install.
 3. Sign onto the instance.
 4. cd /home/ec2-user/lime/
+
+--
+Instructions for building a j** from scratch:
+
+10 rem aws cloudformation create-stack --stack-name craigj31 --template-url https://s3.amazonaws.com/venicegeo-devops-dev-root/lime/cf-jenkins.json --region us-west-2 --parameters ParameterKey=instancetype,ParameterValue=t2.large ParameterKey=tomcatmgrpassword,ParameterValue=M2p1c3Rhc3RoRSM= ParameterKey=tomcaturl,ParameterValue=34.210.232.195
+
+20 rem with a t53 in mind (already built)
+
+22 add credentials 12345 in Manage Jenkins for PCF
+
+24 add craigradiantblueoregon.pem to /home/jenkins
+
+26 open security group :8080
+
+30 in CF run lime/cf-jenkins (or use the above CLI statement)
+
+40 in Jenkins run something-green with parameter values t53, t53
+
+50 rem this will crash quickly: go to Manage Jenkins > In Process Script Approval to allow scripting
+
+60 goto 40
+
+
