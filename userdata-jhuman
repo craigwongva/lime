@@ -4,7 +4,7 @@ rm jenkins-cli.jar                                 &> $TMP-1990 2>&1
 wget localhost:8080/jnlpJars/jenkins-cli.jar       &> $TMP-2000 2>&1
 
 #s/m: Remove the earlier 'export JAVA_HOME'
-export JAVA_HOME=/usr/lib/jvm/java-1.8.0_openjdk   &> $TMP-2100 2>&1
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk   &> $TMP-2100 2>&1
 
 java -jar jenkins-cli.jar -s http://localhost:8080 create-job green-pipeline < lime/green-pipeline.xml                &> $TMP-2200 2>&1
 java -jar jenkins-cli.jar -s http://localhost:8080 create-job python-cf-examples < lime/python-cf-examples.xml        &> $TMP-2300 2>&1
