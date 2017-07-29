@@ -17,7 +17,7 @@ sudo service jenkins stop
 # /etc/init.d, modified to ensure one specific
 # candidate jdk.
 sudo cp lime/jenkins /etc/init.d/                  &> $TMP-1800 2>&1
-sudo cp jenkins.CLI.xml /var/lib/jenkins/          &> $TMP-1810 2>&1
+sudo cp lime/jenkins.CLI.xml /var/lib/jenkins/     &> $TMP-1810 2>&1
 
 sudo service jenkins start                         &> $TMP-1900 2>&1
 #sudo cat /var/lib/jenkins/secrets/initialAdminPassword
