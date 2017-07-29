@@ -6,6 +6,6 @@ wget localhost:8080/jnlpJars/jenkins-cli.jar       &> $TMP-2000 2>&1
 #s/m: Remove the earlier 'export JAVA_HOME'
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk   &> $TMP-2100 2>&1
 
-java -jar jenkins-cli.jar -s http://localhost:8080 create-job green-pipeline < lime/green-pipeline.xml                &> $TMP-2200 2>&1
-java -jar jenkins-cli.jar -s http://localhost:8080 create-job python-cf-examples < lime/python-cf-examples.xml        &> $TMP-2300 2>&1
-java -jar jenkins-cli.jar -s http://localhost:8080 create-job python-cf-examples2 < lime/python-cf-examples2.xml      &> $TMP-2400 2>&1
+$JAVA_HOME/bin/java -jar jenkins-cli.jar -auth admin:`sudo cat /var/lib/jenkins/secrets/initialAdminPassword` -s http://localhost:8080 create-job green-pipeline < lime/green-pipeline.xml                &> $TMP-2200 2>&1
+$JAVA_HOME/bin/java -jar jenkins-cli.jar -auth admin:`sudo cat /var/lib/jenkins/secrets/initialAdminPassword` -s http://localhost:8080 create-job python-cf-examples < lime/python-cf-examples.xml        &> $TMP-2300 2>&1
+$JAVA_HOME/bin/java -jar jenkins-cli.jar -auth admin:`sudo cat /var/lib/jenkins/secrets/initialAdminPassword` -s http://localhost:8080 create-job python-cf-examples2 < lime/python-cf-examples2.xml      &> $TMP-2400 2>&1
