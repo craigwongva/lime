@@ -42,7 +42,7 @@ Use this code to generate create-tags commands, then you the human run those com
 --
 Instructions for building a j** from scratch:
 
-10 rem aws cloudformation create-stack --stack-name craigj31 --template-url https://s3.amazonaws.com/venicegeo-devops-dev-root/lime/cf-jenkins.json --region us-west-2 --parameters ParameterKey=instancetype,ParameterValue=t2.large ParameterKey=tomcatmgrpassword,ParameterValue=M2p1c3Rhc3RoRSM= ParameterKey=tomcaturl,ParameterValue=34.210.232.195
+10 rem aws cloudformation create-stack --stack-name craigj31 --template-url https://s3.amazonaws.com/venicegeo-devops-dev-root/lime/cf-jenkins.json --region us-west-2 --parameters ParameterKey=instancetype,ParameterValue=t2.large
 
 20 rem with a t53 in mind (already built)
 
@@ -60,4 +60,5 @@ Instructions for building a j** from scratch:
 
 60 goto 40
 
-
+Instructions for building a p** from scratch:
+aws cloudformation create-stack --stack-name craigp3 --template-url https://s3.amazonaws.com/venicegeo-devops-dev-root/cf-python.json --region us-west-2
