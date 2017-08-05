@@ -10,12 +10,6 @@
 "Parameters" : {
  "instancetype" : {
   "Type" : "String"
- },
- "tomcatmgrpassword" : {
-  "Type" : "String"
- },
- "tomcaturl" : {
-  "Type" : "String"
  }
 },
 "Resources": {
