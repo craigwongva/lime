@@ -23,7 +23,7 @@ Resources:
       InstanceType: !Ref instancetype
       KeyName:  oregonkeypair
       SecurityGroupIds:
-       - !Ref limesecgrp
+        - !Ref limesecgrp
       IamInstanceProfile: RoleForTestingRoles
       BlockDeviceMappings:
         - DeviceName "/dev/xvda"
