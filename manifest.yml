@@ -1,6 +1,6 @@
 applications:
-- name: bannk
-  path: target/blue-0.1.war
+- name: simpleresh 
+  path: target/green-0.1.war
   buildpack: https://github.com/cloudfoundry/java-buildpack.git
   memory: 502M
   instances: 1
